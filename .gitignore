@@ -1,0 +1,22 @@
+# macOS
+*.DS_Store
+
+# Editor files
+**/.vscode
+.idea/*
+
+# Python filees
+__pycache__/*
+*.pyc
+
+# Generated log files - tmux
+*.log
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Testing
+.pytest_cache/*
