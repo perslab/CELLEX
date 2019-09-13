@@ -89,14 +89,14 @@ class ESObject(object):
         if esms is None:
             esms = ES_METRICS
 
-        for e in esms:
-            if (e not in ES_METRICS):
-                raise ValueError("No such metric: ", e)
+        for m in esms:
+            if (m.lower() not in ES_METRICS):
+                raise ValueError("No such metric: ", m.lower())
 
         results = {}
 
         for m in esms:
-            esm_result = getattr(metrics, m)(self.summary_data, verbose, compute_meta)
+            esm_result = getattr(metrics, m.lower())(self.summary_data, verbose, compute_meta)
             results.update(esm_result)
 
         if compute_meta:
