@@ -23,8 +23,8 @@ import CELLEX.cellex as cellex # needed when importing directly from this repo
 
 ## Load input data and metadata
 ```python
-data = pd.read_csv("./data.csv.gz", index_col=0)
-metadata = pd.read_csv("./metadata.csv.gz", index_col=0)
+data = pd.read_csv("./data.csv", index_col=0)
+metadata = pd.read_csv("./metadata.csv", index_col=0)
 ```
 
 ### Data format
