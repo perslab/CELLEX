@@ -8,7 +8,7 @@ except ImportError:
 
 setup(
     name="cellex",
-    version="1.0.0dev",
+    version="1.0.0",
     author=__author__,
     description="Compute single-cell cell-type expression specificity",
     long_description=Path('README.md').read_text('utf-8'),
