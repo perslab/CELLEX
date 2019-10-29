@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pkg_resources
 
 def mgi_mouse_to_ens_mouse(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -> None:
     """
@@ -24,11 +25,10 @@ def mgi_mouse_to_ens_mouse(df_unmapped: pd.DataFrame, drop_unmapped: bool=False,
    
     if verbose:
         print("Mapping: mouse mgi gene id's --> mouse ensembl gene id's ...")
-        
-    fp_mapping_file = "CELLEX/cellex/utils/mapping/maps/Mus_musculus.GRCm38.90.gene_name_version2ensembl.txt.gz"
-
-    df_map = pd.read_csv(fp_mapping_file, delim_whitespace=True)
-        
+    resource_package = __name__
+    resource_path = 'maps/Mus_musculus.GRCm38.90.gene_name_version2ensembl.txt.gz'  # Do not use os.path.join()
+    resource_stream = pkg_resources.resource_stream(resource_package, resource_path)    
+    df_map = pd.read_csv(resource_stream, compression='gzip', delim_whitespace=True)
     # create dictionary for mapping mouse ensemble gene id's to human ensembl gene id's
     map_dict = dict(zip(df_map["gene_name_optimal"].ravel(), \
                             df_map["ensembl_gene_id"].ravel()))

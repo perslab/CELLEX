@@ -15,7 +15,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/perslab/CELLEX",
     packages=find_packages(),
-    
+    package_data={'': ['*.txt.gz']},
     install_requires=[
         l.strip() for l in
         Path("requirements.txt").read_text("utf-8").splitlines()

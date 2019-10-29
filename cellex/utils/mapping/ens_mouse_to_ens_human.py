@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pkg_resources
 
 def ens_mouse_to_ens_human(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -> None:
     """
@@ -31,11 +32,10 @@ def ens_mouse_to_ens_human(df_unmapped: pd.DataFrame, drop_unmapped: bool=False,
 
     if not (mask_peek.any()):
         print("Dataframe index contains values that are not ensemble format or not mouse ensembl id: ", df_unmapped.index.values[mask_peek])
-        
-    fp_mapping_file = "CELLEX/cellex/utils/mapping/maps/hsapiens_mmusculus_unique_orthologs.GRCh37.ens_v91.txt.gz"
-
-    df_map = pd.read_csv(fp_mapping_file, delim_whitespace=True)
-        
+    resource_package = __name__
+    resource_path = 'maps/hsapiens_mmusculus_unique_orthologs.GRCh37.ens_v91.txt.gz'  # Do not use os.path.join()
+    resource_stream = pkg_resources.resource_stream(resource_package, resource_path)    
+    df_map = pd.read_csv(resource_stream, compression='gzip', delim_whitespace=True)
     # create dictionary for mapping mouse ensemble gene id's to human ensembl gene id's
     map_dict = dict(zip(df_map["mmusculus_homolog_ensembl_gene"].ravel(), \
                             df_map["ensembl_gene_id"].ravel()))
