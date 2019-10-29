@@ -12,7 +12,15 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 This brief tutorial showcases the core features of CELLEX.
 
 ## Setup
-Download this repository and place it in the same directory as the script or Jupyter Notebook you wish to use CELLEX with.
+Clone this repo
+```
+git clone https://github.com/perslab/CELLEX.git
+```
+and install it using `pip`
+```
+cd CELLEX
+pip install -e .
+```
 
 ## Import modules
 ```python
