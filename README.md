@@ -26,7 +26,7 @@ pip install -e .
 ```python
 import numpy as np # needed for formatting data for this tutorial
 import pandas as pd # needed for formatting data for this tutorial
-import CELLEX.cellex as cellex # needed when importing directly from this repo
+import cellex as cellex # needed when importing directly from this repo
 ```
 
 ## Load input data and metadata
@@ -69,7 +69,7 @@ eso.compute(verbose=True)
 Only saves ESmu by default. The ESmu specificity scores may be used directly with **[CELLECT](https://github.com/perslab/CELLECT)**.
 
 ```python
-eso.save(verbose=True)
+eso.save_as_csv(verbose=True)
 ```
 
 ### Output format
