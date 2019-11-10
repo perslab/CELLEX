@@ -12,9 +12,15 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 This brief tutorial showcases the core features of CELLEX.
 
 ## Setup
+### Option A: Install the latest release from PyPi
+```
+pip install cellex
+```
+
+### Option B: Install the development version from this repo
 Clone this repo
 ```
-git clone https://github.com/perslab/CELLEX.git
+git clone https://github.com/perslab/CELLEX.git --branch develop --single-branch
 ```
 and install it using `pip`
 ```
