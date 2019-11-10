@@ -184,17 +184,6 @@ def gene_profile(genes: list,
                        show_legend=False
         )
 
-        # + geom_label(data=df_highlight,
-        #             mapping=aes(angle=60),
-        #             color = "dodgerblue",
-        #             ha="right",
-        #             va="top",
-        #             nudge_y=-0.005,
-        #             # repel not implemented yet, see: https://github.com/has2k1/plotnine/pull/220
-        #             position = position_jitter(height=0.5, random_state=1),
-        #             position = position_stack(vjust=0.8)
-        # )
-
         + p9.facet_wrap("index",
                      scales="free",
                      nrow=n_genes
@@ -216,6 +205,12 @@ def gene_profile(genes: list,
                                     color="grey", width=0.1)\
                 + p9.geom_errorbar(data=df_highlight, mapping=p9.aes(ymin="weight-stddev", ymax="weight+stddev"),
                                 color="dodgerblue", width=0.1)
+
+    # add labels last for them to be on top
+    p = p + p9.geom_label(data=df_highlight,
+                    color = "dodgerblue",
+                    adjust_text = {'expand_points': (2,2)}
+        )
 
     return p
     
