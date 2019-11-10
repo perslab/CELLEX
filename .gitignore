@@ -20,3 +20,7 @@ dist/
 
 # Testing
 .pytest_cache/*
+.pytest_cache
+.ipynb_checkpoints/*
+.ipynb_checkpoints
+*.loom
