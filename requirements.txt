@@ -5,3 +5,4 @@ pandas==0.25.0
 setuptools==41.0.1
 h5py==2.9.0
 setuptools_scm==3.3.3
+loompy

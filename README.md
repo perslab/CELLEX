@@ -12,19 +12,27 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 This brief tutorial showcases the core features of CELLEX.
 
 ## Setup
-Download this repository and place it in the same directory as the script or Jupyter Notebook you wish to use CELLEX with.
+Clone this repo
+```
+git clone https://github.com/perslab/CELLEX.git
+```
+and install it using `pip`
+```
+cd CELLEX
+pip install -e .
+```
 
 ## Import modules
 ```python
 import numpy as np # needed for formatting data for this tutorial
 import pandas as pd # needed for formatting data for this tutorial
-import CELLEX.cellex as cellex # needed when importing directly from this repo
+import cellex as cellex # needed when importing directly from this repo
 ```
 
 ## Load input data and metadata
 ```python
-data = pd.read_csv("./data.csv.gz", index_col=0)
-metadata = pd.read_csv("./metadata.csv.gz", index_col=0)
+data = pd.read_csv("./data.csv", index_col=0)
+metadata = pd.read_csv("./metadata.csv", index_col=0)
 ```
 
 ### Data format
@@ -61,7 +69,7 @@ eso.compute(verbose=True)
 Only saves ESmu by default. The ESmu specificity scores may be used directly with **[CELLECT](https://github.com/perslab/CELLECT)**.
 
 ```python
-eso.save(verbose=True)
+eso.save_as_csv(verbose=True)
 ```
 
 ### Output format
