@@ -66,7 +66,7 @@ Shape: *n* cells by 2.
 ## Create ESObject and compute ESmu
 
 ```python
-eso = cellex.ESObject(df=data, annotation=metadata, verbose=True)
+eso = cellex.ESObject(data=data, annotation=metadata, verbose=True)
 
 eso.compute(verbose=True)
 ```
