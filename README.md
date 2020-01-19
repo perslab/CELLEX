@@ -15,13 +15,19 @@ See ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 202
 This brief tutorial showcases the core features of CELLEX.
 
 ## Setup
-Download this repository and place it in the same directory as the script or Jupyter Notebook you wish to use CELLEX with.
+
+Install CELLEX via pip:
+```
+pip install cellex
+```
+
+<!-- Download this repository and place it in the same directory as the script or Jupyter Notebook you wish to use CELLEX with. -->
 
 ## Import modules
 ```python
-import numpy as np # needed for formatting data for this tutorial
-import pandas as pd # needed for formatting data for this tutorial
-import CELLEX.cellex as cellex # needed when importing directly from this repo
+import numpy as np
+import pandas as pd
+import cellex
 ```
 
 ## Load input data and metadata
