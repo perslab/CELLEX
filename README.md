@@ -1,12 +1,15 @@
 # CELLEX
 CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expression Specificity (ES) profiles. It employs a "wisdom of the crowd"-approach by integrating multiple ES metrics, thus combining complementary cell-type ES profiles, to capture multiple aspects of ES and obtain improved robustness.
 
+![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
 
-## Contents
-* [Quick start](#Quick-start)
-* [Documentation](docs/)
+# Tutorials
+See [tutorials](https://github.com/perslab/CELLEX/tree/master/docs/tutorials) for Jupyter Notebook demos and tutorials.
 
+# Documentation
+
+See ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER) for details in the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki) for additional documentation.
 
 # Quick start
 This brief tutorial showcases the core features of CELLEX.
