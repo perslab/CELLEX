@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pkg_resources
 
 def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -> None:
     """
@@ -32,11 +33,10 @@ def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, ve
 
     if not (mask_peek.any()):
         print("Dataframe index contains values that are not ensemble format or not human ensembl id: ", df_unmapped.index.values[mask_peek])
-        
-    fp_mapping_file = "CELLEX/cellex/utils/mapping/maps/GRCh38.ens_v90.ensembl2gene_name_version.txt.gz"
-
-    df_map = pd.read_csv(fp_mapping_file, delim_whitespace=True, compression="gzip")
-        
+    resource_package = __name__
+    resource_path = 'maps/GRCh38.ens_v90.ensembl2gene_name_version.txt.gz'  # Do not use os.path.join()
+    resource_stream = pkg_resources.resource_stream(resource_package, resource_path)    
+    df_map = pd.read_csv(resource_stream, compression='gzip', delim_whitespace=True)
     # create dictionary for mapping human ensemble gene id's to gene names
     map_dict = dict(zip(df_map["ensembl_gene_id"].ravel(), \
                             df_map["gene_name_optimal"].ravel()))

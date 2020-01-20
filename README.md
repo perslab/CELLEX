@@ -4,29 +4,32 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 ![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
 
-# Tutorials
-See [tutorials](https://github.com/perslab/CELLEX/tree/master/docs/tutorials) for Jupyter Notebook demos and tutorials.
-
-# Documentation
-
-See ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER) for details in the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki) for additional documentation.
+See ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER) for further details on the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki).
 
 # Quick start
 This brief tutorial showcases the core features of CELLEX.
 
 ## Setup
-
-Install CELLEX via pip:
+### Option A: Install the latest release from PyPi
 ```
 pip install cellex
 ```
 
-<!-- Download this repository and place it in the same directory as the script or Jupyter Notebook you wish to use CELLEX with. -->
+### Option B: Install the development version from this repo
+Clone this repo
+```
+git clone https://github.com/perslab/CELLEX.git --branch develop --single-branch
+```
+and install it using `pip`
+```
+cd CELLEX
+pip install -e .
+```
 
 ## Import modules
 ```python
-import numpy as np
-import pandas as pd
+import numpy as np # needed for formatting data for this tutorial
+import pandas as pd # needed for formatting data for this tutorial
 import cellex
 ```
 
@@ -48,7 +51,7 @@ Data may consist of UMI counts (integer) for each **gene** and **cell**.
 Shape: *m* genes by *n* cells.
 
 ### Metadata format
-Metadata should consist of cell id's and matching annotation (string).
+Metadata should consist of *unique* cell id's and matching annotation (string).
 
 | cell_id                | cell_type |
 |------------------------|-----------|
@@ -70,7 +73,7 @@ eso.compute(verbose=True)
 Only saves ESmu by default. The ESmu specificity scores may be used directly with **[CELLECT](https://github.com/perslab/CELLECT)**.
 
 ```python
-eso.save(verbose=True)
+eso.save_as_csv(verbose=True)
 ```
 
 ### Output format
@@ -84,18 +87,23 @@ Output consist of Expression Specificity Weights (float) for each **gene** and *
 
 Shape: *m* genes by *x* unique annotations. N.B. a number of genes may be removed during preprocessing.
 
-# Developers
+
+
+# Tutorials
+See [tutorials](https://github.com/perslab/CELLEX/tree/master/docs/tutorials) for a Jupyter Notebook demo. More examples are in the making.
+
+
+# About
+
+## Developers
 - Tobias Overlund Stannius (University of Copenhagen)
 - Pascal Nordgren Timshel (University of Copenhagen)
 
-# Contact
-Please create an issue on the github repo if you encounter any problems using CELLEX. Alternatively, you may write an email to timshel(at)sund.ku.dk
+## Contact
+Please create an issue in this repo, if you encounter any problems using CELLEX. Alternatively, you may write an email to timshel(at)sund.ku.dk
 
+## References
 
-# References
-
-If you find CELLEX useful for your research, please consider citing the paper: 
-
-["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER)
+If you find CELLEX useful for your research, please consider citing: ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER)
 
 

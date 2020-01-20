@@ -19,6 +19,7 @@ dist/
 *.egg
 
 # Testing
+.pytest_cache
 .pytest_cache/*
 
 ### JupyterNotebooks ###
@@ -31,3 +32,6 @@ dist/
 # IPython
 profile_default/
 ipython_config.py
+
+# Data files
+*.loom
