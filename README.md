@@ -83,3 +83,19 @@ Output consist of Expression Specificity Weights (float) for each **gene** and *
 | gene_z        | 0.1                   | ... | 0.2                    |
 
 Shape: *m* genes by *x* unique annotations. N.B. a number of genes may be removed during preprocessing.
+
+# Developers
+- Tobias Overlund Stannius (University of Copenhagen)
+- Pascal Nordgren Timshel (University of Copenhagen)
+
+# Contact
+Please create an issue on the github repo if you encounter any problems using CELLEX. Alternatively, you may write an email to timshel(at)sund.ku.dk
+
+
+# References
+
+If you find CELLEX useful for your research, please consider citing the paper: 
+
+["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER)
+
+
