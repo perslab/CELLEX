@@ -4,7 +4,7 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 ![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
 
-See ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER) for further details on the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki).
+See [Timshel (bioRxiv, 2020): Mapping heritability of obesity by cell types](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1) for further details on the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki).
 
 # Quick start
 This brief tutorial showcases the core features of CELLEX.
@@ -104,6 +104,7 @@ Please create an issue in this repo, if you encounter any problems using CELLEX.
 
 ## References
 
-If you find CELLEX useful for your research, please consider citing: ["Mapping heritability of obesity by brain cell types" (Timshel, bioRxiv 2020)](UPDATE_LINK_LATER)
+If you find CELLEX useful for your research, please consider citing: 
+**[Timshel (bioRxiv, 2020): _Mapping heritability of obesity by cell types_](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1)**
 
 
