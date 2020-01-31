@@ -38,27 +38,22 @@ class ESObject(object):
                 verbose: bool=False
                 ):
         
-        data, annotation = utils.parse_input(data, annotation, verbose)
-
-        self.results = {}
-        
         ### Preprocessing steps
+
+        # parse data and metadata, i.e. run various quality checks
+        data, annotation = utils.parse_input(data, annotation, verbose)
+        
         if remove_non_expressed:
             data = preprocessing.remove_non_expressed(df=data, verbose=verbose)
         
         if normalize:
             data = preprocessing.log_normalize(df=data, verbose=verbose)
         
-        # Ensure annotation is 1d numpy array
-        # if type(annotation) is pd.DataFrame:
-        #     annotation = annotation.iloc[:,0]
-        
-        # if type(annotation) is pd.Series:
-        #     annotation = data.columns.map(annotation, na_action="ignore").values.astype(str)
-
         if anova:
             # anova returns dict of two dataframes. Select the filtered "df"
             data = preprocessing.anova(df=data, annotation=annotation, verbose=verbose)["df"]
+
+        self.results = {}
 
         ### Create SummaryData object
         self.summary_data = SummaryData(data, annotation)
