@@ -38,6 +38,8 @@ class ESObject(object):
                 verbose: bool=False
                 ):
         
+        data, annotation = utils.parse_input(data, annotation, verbose)
+
         self.results = {}
         
         ### Preprocessing steps
@@ -48,16 +50,16 @@ class ESObject(object):
             data = preprocessing.log_normalize(df=data, verbose=verbose)
         
         # Ensure annotation is 1d numpy array
-        if type(annotation) is pd.DataFrame:
-            annotation = annotation.iloc[:,0]
+        # if type(annotation) is pd.DataFrame:
+        #     annotation = annotation.iloc[:,0]
         
-        if type(annotation) is pd.Series:
-            annotation = data.columns.map(annotation, na_action="ignore").values.astype(str)
+        # if type(annotation) is pd.Series:
+        #     annotation = data.columns.map(annotation, na_action="ignore").values.astype(str)
 
         if anova:
             # anova returns dict of two dataframes. Select the filtered "df"
             data = preprocessing.anova(df=data, annotation=annotation, verbose=verbose)["df"]
-        
+
         ### Create SummaryData object
         self.summary_data = SummaryData(data, annotation)
     
