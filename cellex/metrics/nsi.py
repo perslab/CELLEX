@@ -76,6 +76,17 @@ def _nsi(mean: pd.DataFrame, verbose: bool=False):
 def nsi(stats: SummaryData, verbose: bool=False, compute_meta: bool=False):
     """Compute Normalized Specificity Index
 
+    NSI is based on Specificity Index described in:
+
+        Dougherty, et al. Analytical approaches to RNA profiling data for the 
+        identification of genes enriched in specific cells. Nucleic Acids Res. 
+        38, 4218–4230 (2010).
+
+    and implemented in R. Code available at:
+
+        bactrap(.)org
+
+
     Parameters
     ----------
     summarydata : SummaryData

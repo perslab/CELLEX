@@ -78,6 +78,16 @@ def _ges(data: pd.DataFrame, mean: pd.DataFrame, nnz: pd.DataFrame, n_cells_per_
 def ges(stats: SummaryData, verbose: bool=False, compute_meta: bool=False):
     """Compute Gene Enrichment Score
 
+    GES is based on the eponymous metric described in:
+
+        Zeisel, et al. Molecular Architecture of the Mouse Nervous System. 
+        Cell 174, 999- 1014.e22 (2018).
+
+    and implemented as MarkerSelection in Cytograph. Code available at:
+
+        github(.)com/linnarsson-lab/cytograph
+
+
     Parameters
     ----------
     summarydata : SummaryData

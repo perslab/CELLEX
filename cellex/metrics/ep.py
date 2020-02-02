@@ -48,6 +48,16 @@ def _ep(mean: pd.DataFrame, verbose: bool=False):
 def ep(stats: SummaryData, verbose: bool=False, compute_meta: bool=False):
     """Compute Expression Proportion
 
+    EP is based on the specificity calculations described in:
+
+        Skene, et al. Genetic identification of brain cell types underlying 
+        schizophrenia. Nat. Genet. 50, 825–833 (2018)
+    
+    and implemented in the EWCE R package. Code available at:
+    
+        github(.)com/NathanSkene/EWCE
+
+
     Parameters
     ----------
     summarydata : SummaryData
