@@ -92,8 +92,8 @@ Shape: *m* genes by *x* unique annotations. N.B. a number of genes may be remove
 # Tutorials
 Various tutorials and walkthroughs will be made available here, while the Wiki is in the making. These Jupyter Notebooks cover everything from downloading CELLEX and data to analysis and plotting.
 
-* [Demo: Downloading and running CELLEX with sample Mousebrain Atlas data](https://nbviewer.jupyter.org/github/perslab/CELLEX/blob/master/docs/tutorials/demo_mousebrain_vascular_cells.ipynb)
-* [Demo: Downloading and running CELLEX with sample MOCA data](https://nbviewer.jupyter.org/github/perslab/CELLEX/blob/master/docs/tutorials/demo_moca_100k.ipynb)
+* [Demo: Downloading and running CELLEX with sample Mousebrain Atlas data](docs/tutorials/demo_mousebrain_vascular_cells.ipynb)
+* [Demo: Downloading and running CELLEX with sample MOCA data](docs/tutorials/demo_moca_100k.ipynb)
 
 
 # About
