@@ -78,6 +78,16 @@ class SummaryData(object):
     """
 
     def __init__(self, data: pd.DataFrame, annotation: np.array):
+        """
+        Parameters
+        ----------
+        data: DataFrame
+            Original expression data.
+
+        annotation : array
+            Annotation to group cells by.
+        """
+
         # df.columns = pd.MultiIndex.from_arrays([df.columns,
         #         df.columns.map(annotation, na_action="ignore").values.astype(str)],
         #         names=("id", "annotation"))

@@ -38,6 +38,27 @@ class ESObject(object):
                 anova: bool=True,
                 verbose: bool=False
                 ):
+        """
+        Parameters
+        ----------
+        data: DataFrame
+            Original expression data.
+        
+        annotation : Series
+            Annotation to group cells by.
+        
+        dtype : str, optional (default: "float32)
+            Datatype to use.
+        
+        remove_non_expressed : bool, optional (default: True)
+            Remove non-expressed genes from dataframe.
+        
+        normalize : bool, optional (default: True)
+            Normalize data.
+        
+        anova : bool, optional (default: True)
+            Perform anova to remove genes with low variance.
+        """
         
         ### Preprocessing steps
         # default: cast input datatype to type with smaller memory footprint
