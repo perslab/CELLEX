@@ -3,7 +3,6 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 
 ![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
-
 See [Timshel (bioRxiv, 2020): Mapping heritability of obesity by cell types](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1) for further details on the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki).
 
 # Quick start
@@ -16,12 +15,10 @@ pip install cellex
 ```
 
 ### Option B: Install the development version from this repo
-Clone this repo
+Clone the development repo and install from source using `pip`. The development version may contain bug fixes that have not been released, as well as experimental features.
+
 ```
 git clone https://github.com/perslab/CELLEX.git --branch develop --single-branch
-```
-and install it using `pip`
-```
 cd CELLEX
 pip install -e .
 ```
@@ -70,10 +67,17 @@ eso.compute(verbose=True)
 ```
 
 ## Save result(s)
-Only saves ESmu by default. The ESmu specificity scores may be used directly with **[CELLECT](https://github.com/perslab/CELLECT)**.
+Only saves ESmu by default. The ESmu specificity scores may be used directly with **[CELLECT](https://github.com/perslab/CELLECT)** – see requirements below.
 
 ```python
 eso.save_as_csv(verbose=True)
+```
+
+### Using CELLEX with CELLECT
+CELLECT currently requires that genes are in the *Human Ensembl Gene ID* format. CELLEX provides a simple name-mapping utility for this purpose:
+
+```python
+cellex.utils.mapping.ens_mouse_to_ens_human(eso.results["esmu"], drop_unmapped=True, verbose=True)
 ```
 
 ### Output format
@@ -96,8 +100,8 @@ See [tutorials](https://github.com/perslab/CELLEX/tree/master/docs/tutorials) fo
 # About
 
 ## Developers
-- Tobias Overlund Stannius (University of Copenhagen)
-- Pascal Nordgren Timshel (University of Copenhagen)
+- Tobias Overlund Stannius (University of Copenhagen) [@TobiasStannius](https://twitter.com/TobiasStannius)
+- Pascal Nordgren Timshel (University of Copenhagen) [@ptimshel](https://twitter.com/ptimshel)
 
 ## Contact
 Please create an issue in this repo, if you encounter any problems using CELLEX. Alternatively, you may write an email to timshel(at)sund.ku.dk
@@ -106,5 +110,3 @@ Please create an issue in this repo, if you encounter any problems using CELLEX.
 
 If you find CELLEX useful for your research, please consider citing: 
 **[Timshel (bioRxiv, 2020): _Mapping heritability of obesity by cell types_](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1)**
-
-
