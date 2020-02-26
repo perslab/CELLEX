@@ -32,6 +32,7 @@ class ESObject(object):
     def __init__(self, 
                 data: pd.DataFrame, 
                 annotation: pd.Series,
+                dtype: str="float32",
                 remove_non_expressed: bool=True,
                 normalize: bool=True,
                 anova: bool=True,
@@ -39,6 +40,8 @@ class ESObject(object):
                 ):
         
         ### Preprocessing steps
+        # default: cast input datatype to type with smaller memory footprint
+        data = data.astype(dtype=dtype)
 
         # parse data and metadata, i.e. run various quality checks
         data, annotation = utils.parse_input(data, annotation, verbose)

@@ -12,7 +12,7 @@ def test_recreate_benchmark():
     data = pd.read_csv(path_data, index_col=0, compression="gzip")
     metadata = pd.read_csv(path_metadata, index_col=0, compression="gzip")
 
-    eso = cellex.ESObject(data, annotation=metadata)
+    eso = cellex.ESObject(data, annotation=metadata, dtype="float64")
     eso.compute()
 
     for key in eso.results.keys():
