@@ -105,7 +105,7 @@ def det(stats: SummaryData, verbose: bool=False, compute_meta: bool=False):
     
     """
     
-    tart = 0
+    start = 0
 
     if verbose:
         start = time.time()

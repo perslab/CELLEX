@@ -92,7 +92,7 @@ def ep(stats: SummaryData, verbose: bool=False, compute_meta: bool=False):
     if verbose:
         print("    esw ...")
     esw = _ep(df, verbose)
-    esw_df = pd.DataFrame(esw, df.index, col_labels)
+    esw_df = pd.DataFrame(esw, idx_labels, col_labels)
     results[(key + "esw")] = esw_df
 
     if compute_meta:
