@@ -1,3 +1,5 @@
+[![PyPI version shields.io](https://img.shields.io/pypi/v/cellex.svg)](https://pypi.python.org/pypi/cellex/)
+
 # CELLEX
 CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expression Specificity (ES) profiles. It employs a "wisdom of the crowd"-approach by integrating multiple ES metrics, thus combining complementary cell-type ES profiles, to capture multiple aspects of ES and obtain improved robustness.
 
