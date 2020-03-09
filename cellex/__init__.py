@@ -9,6 +9,10 @@ __author__ = ", ".join([
     "Tobias O. Stannius",
     ])
 
+__email__ = ', '.join([
+    'stannius@sund.ku.dk',
+])
+
 # Load CELLEX modules
 from . import metrics
 from . import plotting

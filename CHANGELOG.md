@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Fixed
 
+## [1.1.1] – 2020-03-09
+### Fixed
+* FileNotFoundError for mapping functions.
+
 ## [1.1.0] – 2020-02-27
 ### Added
 * Function to parse input, `utils.parse_input()`

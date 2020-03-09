@@ -2,20 +2,21 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 try:
-    from cellex import __author__
+    from cellex import __author__, __email__
 except ImportError:
-    __author__ = ""
+    __author__ = __email__ = ""
 
 setup(
     name="cellex",
-    version="1.1.0",
+    version="1.1.1",
     author=__author__,
+    author_email=__email__,
     description="Compute single-cell cell-type expression specificity",
     long_description=Path('README.md').read_text('utf-8'),
     long_description_content_type="text/markdown",
     url="https://github.com/perslab/CELLEX",
     packages=find_packages(),
-    package_data={'': ['*.txt.gz']},
+    include_package_data=True,
     install_requires=[
         l.strip() for l in
         Path("requirements.txt").read_text("utf-8").splitlines()
@@ -31,6 +32,4 @@ setup(
         "Programming Language :: Python :: 3",
         "Topic :: Scientific/Engineering :: Bio-Informatics"
     ]
-
-
 )

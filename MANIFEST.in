@@ -1,0 +1,3 @@
+# Exclude everything not needed for importing, building, and tests
+include *.txt.gz
+prune docs
