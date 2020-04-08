@@ -4,7 +4,7 @@ import pkg_resources
 
 def ens_mouse_to_ens_human(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -> None:
     """
-    Maps mouse ensembl gene id's to human ensembl gene id's.
+    Maps mouse ensembl gene id's to human ensembl gene id's inplace.
 
     Args:
         df_unmapped:    a dataframe in tidy-format.

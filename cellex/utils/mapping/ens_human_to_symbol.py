@@ -4,7 +4,7 @@ import pkg_resources
 
 def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -> None:
     """
-    Maps human ensembl gene id's to gene names inplace.
+    Maps human ensembl gene id's to gene symbol id's inplace.
 
     Args:
         df_unmapped:    a dataframe in tidy-format.
