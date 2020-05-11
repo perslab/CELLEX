@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>cellex.summarydata API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>cellex.summarydata</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import numpy as np
+import pandas as pd
+
+class SummaryData(object):
+    &#34;&#34;&#34;A class that contains summary data for computing ES metrics
+
+    The SummaryData object allows sharing of summary data in between 
+    commputations, thus reducing the number computations needed,
+    e.g. we need only compute the mean once.
+
+    Attributes
+    ----------
+    data: DataFrame
+        Original expression data.
+
+    annotation : 
+        Annotation to group cells by.
+
+    _mean : DataFrame
+        Mean expression for the groups specified by the annotation.
+
+    _n_cells_per_anno : DataFrame
+        Number of cells per groups specified by the annotation.
+
+    _n_nonzero : DataFrame
+        Number of nonzero expression values per groups specified by the annotation.
+
+    _variance : DataFrame
+        Variance of expression values per groups specified by the annotation.
+
+    annotation_null : np.ndarray
+        Null annotation to group cells by.
+    
+    _mean_null : DataFrame
+        Mean expression for the groups specified by the null annotation.
+
+    _n_cells_per_anno_null : DataFrame
+        Number of cells per groups specified by the null annotation.
+
+    _n_nonzero_null : DataFrame
+        Number of nonzero expression values per groups specified by the null annotation.
+
+    _variance_null : DataFrame
+        Variance of expression values per groups specified by the null annotation.
+
+    Methods
+    -------
+    mean(self)
+        Lazily evaluate and return _mean.
+    
+    n_cells_per_anno(self)
+        Lazily evaluate and return _n_cells_per_anno.
+    
+    n_nonzero(self)
+        Lazily evaluate and return _n_nonzero.
+    
+    variance(self)
+        Lazily evaluate and return _variance.
+    
+    annotation_null(self)
+        Lazily evaluate and return _annotation_null.
+    
+    mean_null(self)
+        Lazily evaluate and return _mean_null.
+
+    n_cells_per_anno_null(self)
+        Lazily evaluate and return _n_cells_per_anno_null.
+    
+    n_nonzero_null(self)
+        Lazily evaluate and return _n_nonzero_null.
+    
+    variance_null(self)
+        Lazily evaluate and return _variance_null.
+
+    save(dir_name: str=None, verbose: bool=False)
+        Save the object attributes, excluding the original data.
+    &#34;&#34;&#34;
+
+    def __init__(self, data: pd.DataFrame, annotation: np.array):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        data: DataFrame
+            Original expression data.
+
+        annotation : array
+            Annotation to group cells by.
+        &#34;&#34;&#34;
+
+        # df.columns = pd.MultiIndex.from_arrays([df.columns,
+        #         df.columns.map(annotation, na_action=&#34;ignore&#34;).values.astype(str)],
+        #         names=(&#34;id&#34;, &#34;annotation&#34;))
+        
+        self.data = data
+
+        self.annotation = annotation
+        self._mean = None
+        self._n_cells_per_anno = None # tstat, ges (just one line)
+        self._n_nonzero = None
+        self._variance = None # tstat
+        
+        # null attributes
+        self._annotation_null = None
+        self._mean_null = None
+        self._n_nonzero_null = None
+        self._n_cells_per_anno_null = None
+        self._variance_null = None
+
+    @property
+    def mean(self):
+        &#34;&#34;&#34;Compute or return mean&#34;&#34;&#34;
+        if self._mean is None:
+            self._mean = self.data.groupby(self.annotation, axis=1).mean()
+        
+        return self._mean
+
+    @property
+    def n_cells_per_anno(self):
+        if self._n_cells_per_anno is None:
+            self._n_cells_per_anno = self.data.groupby(self.annotation, axis=1).size()
+
+        return self._n_cells_per_anno
+
+    @property
+    def n_nonzero(self):
+        if self._n_nonzero is None:
+            self._n_nonzero = self.data.groupby(self.annotation, axis=1).agg(lambda x: x.ne(0).sum(axis=1))
+        
+        return self._n_nonzero
+
+    @property
+    def variance(self):
+        if self._variance is None:
+            self._variance = self.data.groupby(self.annotation, axis=1).var()
+
+        return self._variance
+
+    ### Null summary data
+    @property
+    def annotation_null(self):
+        if self._annotation_null is None:
+            np.random.seed(1)
+            self._annotation_null = np.random.permutation(self.annotation)
+
+        return self._annotation_null
+
+    @property
+    def mean_null(self):
+        if self._mean_null is None:
+            self._mean_null = self.data.groupby(self.annotation_null, axis=1).mean()
+
+        return self._mean_null
+    
+    @property
+    def n_cells_per_anno_null(self):
+        if self._n_cells_per_anno_null is None:
+            self._n_cells_per_anno_null = self.data.groupby(self.annotation_null, axis=1).size()
+
+        return self._n_cells_per_anno_null
+
+    @property
+    def n_nonzero_null(self):
+        if self._n_nonzero_null is None:
+            self._n_nonzero_null = self.data.groupby(self.annotation_null, axis=1).agg(lambda x: x.ne(0).sum(axis=1))
+        
+        return self._n_nonzero_null
+
+    @property
+    def variance_null(self):
+        if self._variance_null is None:
+            self._variance_null = self.data.groupby(self.annotation_null, axis=1).var()
+
+        return self._variance_null
+
+    def save(self, dir_name: str=None, verbose: bool=False) -&gt; None:
+        &#34;&#34;&#34;
+        Save summary statistics to disk.
+        &#34;&#34;&#34;
+        if verbose:
+            print(&#34;Saving results to disk ...&#34;)
+
+        if dir_name == None:
+            dir_name = &#34;out&#34;
+
+        os.makedirs(dir_name, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+        ### Loop over SummaryStats attributes and save stats to disk
+        for s in dir(self):
+            att = getattr(self, s)
+            if isinstance(att, pd.DataFrame) and s != &#34;data&#34;:
+                fp = &#34;{}/summarystat.{}.csv.gz&#34;.format(dir_name, self.name, s)
+                att.to_csv(fp, compression=&#34;gzip&#34;)
+                if verbose:
+                    print(&#34;  Saved: {}&#34;.format(fp))
+
+            </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="cellex.summarydata.SummaryData"><code class="flex name class">
+<span>class <span class="ident">SummaryData</span></span>
+<span>(</span><span>data: pandas.core.frame.DataFrame, annotation: <built-in function array>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class that contains summary data for computing ES metrics</p>
+<p>The SummaryData object allows sharing of summary data in between
+commputations, thus reducing the number computations needed,
+e.g. we need only compute the mean once.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Original expression data.</dd>
+<dt><strong><code>annotation</code></strong></dt>
+<dd>Annotation to group cells by.</dd>
+<dt><strong><code>_mean</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Mean expression for the groups specified by the annotation.</dd>
+<dt><strong><code>_n_cells_per_anno</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Number of cells per groups specified by the annotation.</dd>
+<dt><strong><code>_n_nonzero</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Number of nonzero expression values per groups specified by the annotation.</dd>
+<dt><strong><code>_variance</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Variance of expression values per groups specified by the annotation.</dd>
+<dt><strong><code>annotation_null</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Null annotation to group cells by.</dd>
+<dt><strong><code>_mean_null</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Mean expression for the groups specified by the null annotation.</dd>
+<dt><strong><code>_n_cells_per_anno_null</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Number of cells per groups specified by the null annotation.</dd>
+<dt><strong><code>_n_nonzero_null</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Number of nonzero expression values per groups specified by the null annotation.</dd>
+<dt><strong><code>_variance_null</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Variance of expression values per groups specified by the null annotation.</dd>
+</dl>
+<h2 id="methods">Methods</h2>
+<p>mean(self)
+Lazily evaluate and return _mean.</p>
+<p>n_cells_per_anno(self)
+Lazily evaluate and return _n_cells_per_anno.</p>
+<p>n_nonzero(self)
+Lazily evaluate and return _n_nonzero.</p>
+<p>variance(self)
+Lazily evaluate and return _variance.</p>
+<p>annotation_null(self)
+Lazily evaluate and return _annotation_null.</p>
+<p>mean_null(self)
+Lazily evaluate and return _mean_null.</p>
+<p>n_cells_per_anno_null(self)
+Lazily evaluate and return _n_cells_per_anno_null.</p>
+<p>n_nonzero_null(self)
+Lazily evaluate and return _n_nonzero_null.</p>
+<p>variance_null(self)
+Lazily evaluate and return _variance_null.</p>
+<p>save(dir_name: str=None, verbose: bool=False)
+Save the object attributes, excluding the original data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Original expression data.</dd>
+<dt><strong><code>annotation</code></strong> :&ensp;<code>array</code></dt>
+<dd>Annotation to group cells by.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SummaryData(object):
+    &#34;&#34;&#34;A class that contains summary data for computing ES metrics
+
+    The SummaryData object allows sharing of summary data in between 
+    commputations, thus reducing the number computations needed,
+    e.g. we need only compute the mean once.
+
+    Attributes
+    ----------
+    data: DataFrame
+        Original expression data.
+
+    annotation : 
+        Annotation to group cells by.
+
+    _mean : DataFrame
+        Mean expression for the groups specified by the annotation.
+
+    _n_cells_per_anno : DataFrame
+        Number of cells per groups specified by the annotation.
+
+    _n_nonzero : DataFrame
+        Number of nonzero expression values per groups specified by the annotation.
+
+    _variance : DataFrame
+        Variance of expression values per groups specified by the annotation.
+
+    annotation_null : np.ndarray
+        Null annotation to group cells by.
+    
+    _mean_null : DataFrame
+        Mean expression for the groups specified by the null annotation.
+
+    _n_cells_per_anno_null : DataFrame
+        Number of cells per groups specified by the null annotation.
+
+    _n_nonzero_null : DataFrame
+        Number of nonzero expression values per groups specified by the null annotation.
+
+    _variance_null : DataFrame
+        Variance of expression values per groups specified by the null annotation.
+
+    Methods
+    -------
+    mean(self)
+        Lazily evaluate and return _mean.
+    
+    n_cells_per_anno(self)
+        Lazily evaluate and return _n_cells_per_anno.
+    
+    n_nonzero(self)
+        Lazily evaluate and return _n_nonzero.
+    
+    variance(self)
+        Lazily evaluate and return _variance.
+    
+    annotation_null(self)
+        Lazily evaluate and return _annotation_null.
+    
+    mean_null(self)
+        Lazily evaluate and return _mean_null.
+
+    n_cells_per_anno_null(self)
+        Lazily evaluate and return _n_cells_per_anno_null.
+    
+    n_nonzero_null(self)
+        Lazily evaluate and return _n_nonzero_null.
+    
+    variance_null(self)
+        Lazily evaluate and return _variance_null.
+
+    save(dir_name: str=None, verbose: bool=False)
+        Save the object attributes, excluding the original data.
+    &#34;&#34;&#34;
+
+    def __init__(self, data: pd.DataFrame, annotation: np.array):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        data: DataFrame
+            Original expression data.
+
+        annotation : array
+            Annotation to group cells by.
+        &#34;&#34;&#34;
+
+        # df.columns = pd.MultiIndex.from_arrays([df.columns,
+        #         df.columns.map(annotation, na_action=&#34;ignore&#34;).values.astype(str)],
+        #         names=(&#34;id&#34;, &#34;annotation&#34;))
+        
+        self.data = data
+
+        self.annotation = annotation
+        self._mean = None
+        self._n_cells_per_anno = None # tstat, ges (just one line)
+        self._n_nonzero = None
+        self._variance = None # tstat
+        
+        # null attributes
+        self._annotation_null = None
+        self._mean_null = None
+        self._n_nonzero_null = None
+        self._n_cells_per_anno_null = None
+        self._variance_null = None
+
+    @property
+    def mean(self):
+        &#34;&#34;&#34;Compute or return mean&#34;&#34;&#34;
+        if self._mean is None:
+            self._mean = self.data.groupby(self.annotation, axis=1).mean()
+        
+        return self._mean
+
+    @property
+    def n_cells_per_anno(self):
+        if self._n_cells_per_anno is None:
+            self._n_cells_per_anno = self.data.groupby(self.annotation, axis=1).size()
+
+        return self._n_cells_per_anno
+
+    @property
+    def n_nonzero(self):
+        if self._n_nonzero is None:
+            self._n_nonzero = self.data.groupby(self.annotation, axis=1).agg(lambda x: x.ne(0).sum(axis=1))
+        
+        return self._n_nonzero
+
+    @property
+    def variance(self):
+        if self._variance is None:
+            self._variance = self.data.groupby(self.annotation, axis=1).var()
+
+        return self._variance
+
+    ### Null summary data
+    @property
+    def annotation_null(self):
+        if self._annotation_null is None:
+            np.random.seed(1)
+            self._annotation_null = np.random.permutation(self.annotation)
+
+        return self._annotation_null
+
+    @property
+    def mean_null(self):
+        if self._mean_null is None:
+            self._mean_null = self.data.groupby(self.annotation_null, axis=1).mean()
+
+        return self._mean_null
+    
+    @property
+    def n_cells_per_anno_null(self):
+        if self._n_cells_per_anno_null is None:
+            self._n_cells_per_anno_null = self.data.groupby(self.annotation_null, axis=1).size()
+
+        return self._n_cells_per_anno_null
+
+    @property
+    def n_nonzero_null(self):
+        if self._n_nonzero_null is None:
+            self._n_nonzero_null = self.data.groupby(self.annotation_null, axis=1).agg(lambda x: x.ne(0).sum(axis=1))
+        
+        return self._n_nonzero_null
+
+    @property
+    def variance_null(self):
+        if self._variance_null is None:
+            self._variance_null = self.data.groupby(self.annotation_null, axis=1).var()
+
+        return self._variance_null
+
+    def save(self, dir_name: str=None, verbose: bool=False) -&gt; None:
+        &#34;&#34;&#34;
+        Save summary statistics to disk.
+        &#34;&#34;&#34;
+        if verbose:
+            print(&#34;Saving results to disk ...&#34;)
+
+        if dir_name == None:
+            dir_name = &#34;out&#34;
+
+        os.makedirs(dir_name, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+        ### Loop over SummaryStats attributes and save stats to disk
+        for s in dir(self):
+            att = getattr(self, s)
+            if isinstance(att, pd.DataFrame) and s != &#34;data&#34;:
+                fp = &#34;{}/summarystat.{}.csv.gz&#34;.format(dir_name, self.name, s)
+                att.to_csv(fp, compression=&#34;gzip&#34;)
+                if verbose:
+                    print(&#34;  Saved: {}&#34;.format(fp))</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="cellex.summarydata.SummaryData.annotation_null"><code class="name">var <span class="ident">annotation_null</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def annotation_null(self):
+    if self._annotation_null is None:
+        np.random.seed(1)
+        self._annotation_null = np.random.permutation(self.annotation)
+
+    return self._annotation_null</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.mean"><code class="name">var <span class="ident">mean</span></code></dt>
+<dd>
+<div class="desc"><p>Compute or return mean</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mean(self):
+    &#34;&#34;&#34;Compute or return mean&#34;&#34;&#34;
+    if self._mean is None:
+        self._mean = self.data.groupby(self.annotation, axis=1).mean()
+    
+    return self._mean</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.mean_null"><code class="name">var <span class="ident">mean_null</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def mean_null(self):
+    if self._mean_null is None:
+        self._mean_null = self.data.groupby(self.annotation_null, axis=1).mean()
+
+    return self._mean_null</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.n_cells_per_anno"><code class="name">var <span class="ident">n_cells_per_anno</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def n_cells_per_anno(self):
+    if self._n_cells_per_anno is None:
+        self._n_cells_per_anno = self.data.groupby(self.annotation, axis=1).size()
+
+    return self._n_cells_per_anno</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.n_cells_per_anno_null"><code class="name">var <span class="ident">n_cells_per_anno_null</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def n_cells_per_anno_null(self):
+    if self._n_cells_per_anno_null is None:
+        self._n_cells_per_anno_null = self.data.groupby(self.annotation_null, axis=1).size()
+
+    return self._n_cells_per_anno_null</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.n_nonzero"><code class="name">var <span class="ident">n_nonzero</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def n_nonzero(self):
+    if self._n_nonzero is None:
+        self._n_nonzero = self.data.groupby(self.annotation, axis=1).agg(lambda x: x.ne(0).sum(axis=1))
+    
+    return self._n_nonzero</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.n_nonzero_null"><code class="name">var <span class="ident">n_nonzero_null</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def n_nonzero_null(self):
+    if self._n_nonzero_null is None:
+        self._n_nonzero_null = self.data.groupby(self.annotation_null, axis=1).agg(lambda x: x.ne(0).sum(axis=1))
+    
+    return self._n_nonzero_null</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.variance"><code class="name">var <span class="ident">variance</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def variance(self):
+    if self._variance is None:
+        self._variance = self.data.groupby(self.annotation, axis=1).var()
+
+    return self._variance</code></pre>
+</details>
+</dd>
+<dt id="cellex.summarydata.SummaryData.variance_null"><code class="name">var <span class="ident">variance_null</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def variance_null(self):
+    if self._variance_null is None:
+        self._variance_null = self.data.groupby(self.annotation_null, axis=1).var()
+
+    return self._variance_null</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="cellex.summarydata.SummaryData.save"><code class="name flex">
+<span>def <span class="ident">save</span></span>(<span>self, dir_name: str = None, verbose: bool = False) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save summary statistics to disk.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save(self, dir_name: str=None, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;
+    Save summary statistics to disk.
+    &#34;&#34;&#34;
+    if verbose:
+        print(&#34;Saving results to disk ...&#34;)
+
+    if dir_name == None:
+        dir_name = &#34;out&#34;
+
+    os.makedirs(dir_name, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+    ### Loop over SummaryStats attributes and save stats to disk
+    for s in dir(self):
+        att = getattr(self, s)
+        if isinstance(att, pd.DataFrame) and s != &#34;data&#34;:
+            fp = &#34;{}/summarystat.{}.csv.gz&#34;.format(dir_name, self.name, s)
+            att.to_csv(fp, compression=&#34;gzip&#34;)
+            if verbose:
+                print(&#34;  Saved: {}&#34;.format(fp))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cellex" href="index.html">cellex</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="cellex.summarydata.SummaryData" href="#cellex.summarydata.SummaryData">SummaryData</a></code></h4>
+<ul class="">
+<li><code><a title="cellex.summarydata.SummaryData.annotation_null" href="#cellex.summarydata.SummaryData.annotation_null">annotation_null</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.mean" href="#cellex.summarydata.SummaryData.mean">mean</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.mean_null" href="#cellex.summarydata.SummaryData.mean_null">mean_null</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.n_cells_per_anno" href="#cellex.summarydata.SummaryData.n_cells_per_anno">n_cells_per_anno</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.n_cells_per_anno_null" href="#cellex.summarydata.SummaryData.n_cells_per_anno_null">n_cells_per_anno_null</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.n_nonzero" href="#cellex.summarydata.SummaryData.n_nonzero">n_nonzero</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.n_nonzero_null" href="#cellex.summarydata.SummaryData.n_nonzero_null">n_nonzero_null</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.save" href="#cellex.summarydata.SummaryData.save">save</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.variance" href="#cellex.summarydata.SummaryData.variance">variance</a></code></li>
+<li><code><a title="cellex.summarydata.SummaryData.variance_null" href="#cellex.summarydata.SummaryData.variance_null">variance_null</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
