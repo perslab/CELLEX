@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>cellex.plotting.gene_profile API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>cellex.plotting.gene_profile</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+import pandas as pd
+import plotnine as p9
+
+def gene_profile(genes: list, 
+                 weights: pd.DataFrame, 
+                 stddev: pd.DataFrame=None,
+                 y_axis_label: str=None,
+                 highlight_n: int=None, 
+                 highlight_anno: list=None, 
+                 figsize: tuple=None,
+                 ylim: tuple=None) -&gt; p9.ggplot:
+    &#34;&#34;&#34;
+    
+    Parameters
+    ----------
+    weights            : DataFrame of ES weights
+    genes          : a single str or list of genes to include in plot as facets
+    highlight_n    : number of highest ESw to highlight
+    highlight_anno : specific annotations to highlight
+    figsize : (float, float), optional (default: None)
+        Specify width and height of plot.
+    
+    Returns
+    -------
+        g    : ggplot
+        
+    Todo:
+        * find a better way for sorting cell-types along x-axis
+        * report if gene in genes is not found in df
+        * report if duplicate genes
+        * replace hacky x-axis labelling
+    
+    &#34;&#34;&#34;
+    
+    ### Reduce dataframe to genes of interest
+    genes = [str.upper(s) for s in genes]
+    idx = np.char.upper(weights.index.values.astype(str))
+    mask = np.isin(idx, genes)
+    df_tidy = weights[mask]
+    n_genes = len(df_tidy)
+
+    assert (n_genes &gt;= 1), &#34;No matching genes found in dataframe.&#34;
+
+    stddev_tidy = None
+    if stddev is not None:
+        idx = np.char.upper(stddev.index.values.astype(str))
+        mask = np.isin(idx, genes)
+        stddev_tidy = stddev[mask]
+        n_genes = len(df_tidy)
+        assert (n_genes &gt;= 1), &#34;No matching genes found in stddev dataframe.&#34;
+
+    # Constants, height and width of plot.
+    if figsize is None:
+        H = 5*n_genes
+        W = 15
+    else:
+        W, H = figsize
+
+    if ylim is None:
+        ylim = (-1,1)
+    
+    if y_axis_label is None:
+        y_axis_label = &#34;Expression Specificity&#34;
+    
+    ### Convert to tidy / long format if necessary
+    # Org:
+    #       ABC  ACBG  ACMB
+    # POMC  0.0   0.5   0.9
+    # AGRP  0.2   0.0   0.0
+    # LEPR  0.1   0.1   0.4
+    
+    # Tidy:
+    #   gene_name annotation    es_weight
+    # 1 POMC      ABC           0.0
+    # 2 AGRP      ABC           0.6
+    # 3 LEPR      ABC           1.0     
+
+    df_tidy.index.name = None # ensure that index name is none, so &#34;index&#34; is used for id_vars
+    df_tidy = pd.melt(df_tidy.reset_index(), id_vars=&#34;index&#34;, var_name=&#34;annotation&#34;, value_name=&#34;weight&#34;)
+    
+    if stddev_tidy is not None:
+        stddev_tidy.index.name = None
+        stddev_tidy = pd.melt(stddev_tidy.reset_index(), id_vars=&#34;index&#34;, var_name=&#34;annotation&#34;, value_name=&#34;stddev&#34;)
+        df_tidy = df_tidy.merge(stddev_tidy, on=[&#34;index&#34;, &#34;annotation&#34;])
+
+
+    ### Sort values by gene_name and es_weight and add order
+    # Sorted:
+    #   gene_name annotation   es_weight   x_order
+    # 1 AGRP      MOL2         0.0         1
+    # 2 AGRP      ACNT1        0.1         2
+    # 3 AGRP      MOL1         0.2         3
+    
+    df_tidy = df_tidy.sort_values(by=[&#34;index&#34;, &#34;weight&#34;])
+    df_tidy[&#34;order&#34;] = np.arange(len(df_tidy)) + 1
+    
+    ### Generate highlight
+    # Default: highlight top 5
+    if ((highlight_n is None) and (highlight_anno is None)):
+        highlight_n = 5
+
+    # highlight list of 
+    if (highlight_anno is not None):
+        df_tidy[&#34;highlight&#34;] = df_tidy[&#34;annotation&#34;].isin(highlight_anno)
+    elif (highlight_n is not None):
+        df_tidy[&#34;highlight&#34;] = df_tidy.groupby(&#34;index&#34;)[&#34;order&#34;].rank(&#34;first&#34;, ascending=False) &lt;= highlight_n
+    else:
+        df_tidy[&#34;highlight&#34;] = np.array([False] * len(df_tidy))
+    
+    df_highlight = df_tidy[df_tidy[&#34;highlight&#34;]]
+    
+    ### Plot
+    # linear function to compute x_axis text-size.
+    # Mainly depends on number of genes in df per faceet, i.e. len(df_tidy) / len(genes).
+    SIZE_TEXT_X_AXIS = 10.161 - 0.023 * (len(df_tidy) / len(genes))
+    
+    # Limits of the order for each index gene / facet, e.g. [0, 266, 531]
+    # These limits are necessary to only plot the labels
+    order_lims = [0, *(df_tidy.groupby(&#34;index&#34;)[&#34;order&#34;].max().values)]
+    
+    def find_nearest(array,value):
+        array = np.asarray(array)
+        idx = (np.abs(array - value)).argmin()
+        return array[idx]
+        
+    def getbreaks(lims):
+        # function defined for use in debugging
+        l = find_nearest(order_lims, lims[0])
+        r = find_nearest(order_lims, lims[1])
+        breaks = np.arange(l, r)
+        return breaks
+
+    def getlbls(idx):
+        # function defined for use in debugging
+        idx = idx
+        lbls = df_tidy[&#34;annotation&#34;].iloc[idx].values
+        return lbls
+    
+    p = (
+        ### data
+        p9.ggplot(data=df_tidy, mapping=p9.aes(x=&#34;order&#34;, y=&#34;weight&#34;, label=&#34;annotation&#34;))
+
+        ### theming
+        + p9.theme_classic()
+        + p9.theme(
+            figure_size = (W,H),
+            axis_ticks_major_x = p9.element_blank(),
+            axis_text_x = p9.element_text(rotation=75, hjust=0, size=SIZE_TEXT_X_AXIS), # 
+            axis_text_y = p9.element_text(size=W),
+            panel_spacing = 1,
+            strip_background = p9.element_blank()
+        )
+
+        + p9.ylim(ylim[0],ylim[1])
+
+        + p9.labs(
+            x=&#34;&#34;, # e.g. &#34;Cell-type&#34;
+            y=y_axis_label, # e.g. &#34;ES weight&#34;
+        )
+
+        ### viz
+        # all
+        + p9.geom_segment(mapping=p9.aes(x=&#34;order&#34;, xend=&#34;order&#34;, y=0, yend=&#34;weight&#34;),
+                       color=&#34;grey&#34;,
+                       alpha=0.3,
+                       show_legend=False
+        )
+
+        + p9.geom_point(mapping=p9.aes(size=2),
+                     color=&#34;grey&#34;,
+                    show_legend=False
+        )
+
+        # highlight
+        + p9.geom_point(data=df_highlight, mapping=p9.aes(size=2), 
+                     color=&#34;dodgerblue&#34;,
+                    show_legend=False
+        )
+
+        + p9.geom_segment(data=df_highlight, mapping=p9.aes(x=&#34;order&#34;, xend=&#34;order&#34;, y=0, yend=&#34;weight&#34;),
+                       color=&#34;dodgerblue&#34;,
+                       alpha=0.3,
+                       show_legend=False
+        )
+
+        + p9.facet_wrap(&#34;index&#34;,
+                     scales=&#34;free&#34;,
+                     nrow=n_genes
+                    )
+        
+        + p9.scale_x_continuous(
+            # order_scale is continuous across all annotations
+            # so the scale will look weird for each facet, e.g.
+            # facet 1 may have order 1-7, and facet 2 has order 8-14.
+            # therefore we must use a labeller function to get the 
+            # correct labels for each interval of order.
+            breaks = lambda lims: getbreaks(lims),
+            labels = lambda idx: getlbls(idx)
+        )
+    )
+    
+    if stddev_tidy is not None:
+        p = p + p9.geom_errorbar(mapping=p9.aes(ymin=&#34;weight-stddev&#34;, ymax=&#34;weight+stddev&#34;), 
+                                    color=&#34;grey&#34;, width=0.1)\
+                + p9.geom_errorbar(data=df_highlight, mapping=p9.aes(ymin=&#34;weight-stddev&#34;, ymax=&#34;weight+stddev&#34;),
+                                color=&#34;dodgerblue&#34;, width=0.1)
+
+    # add labels last for them to be on top
+    p = p + p9.geom_label(data=df_highlight,
+                    color = &#34;dodgerblue&#34;,
+                    adjust_text = {&#39;expand_points&#39;: (2,2)}
+        )
+
+    return p
+    </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="cellex.plotting.gene_profile.gene_profile"><code class="name flex">
+<span>def <span class="ident">gene_profile</span></span>(<span>genes: list, weights: pandas.core.frame.DataFrame, stddev: pandas.core.frame.DataFrame = None, y_axis_label: str = None, highlight_n: int = None, highlight_anno: list = None, figsize: tuple = None, ylim: tuple = None) -> plotnine.ggplot.ggplot</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="parameters">Parameters</h2>
+<dl>
+<dt>weights
+: DataFrame of ES weights</dt>
+<dt>genes
+: a single str or list of genes to include in plot as facets</dt>
+<dt>highlight_n
+: number of highest ESw to highlight</dt>
+<dt><strong><code>highlight_anno</code></strong> :&ensp;<code>specific annotations to highlight</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>(float, float)</code>, optional <code>(default: None)</code></dt>
+<dd>Specify width and height of plot.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>g    : ggplot
+</code></pre>
+<h2 id="todo">Todo</h2>
+<ul>
+<li>find a better way for sorting cell-types along x-axis</li>
+<li>report if gene in genes is not found in df</li>
+<li>report if duplicate genes</li>
+<li>replace hacky x-axis labelling</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gene_profile(genes: list, 
+                 weights: pd.DataFrame, 
+                 stddev: pd.DataFrame=None,
+                 y_axis_label: str=None,
+                 highlight_n: int=None, 
+                 highlight_anno: list=None, 
+                 figsize: tuple=None,
+                 ylim: tuple=None) -&gt; p9.ggplot:
+    &#34;&#34;&#34;
+    
+    Parameters
+    ----------
+    weights            : DataFrame of ES weights
+    genes          : a single str or list of genes to include in plot as facets
+    highlight_n    : number of highest ESw to highlight
+    highlight_anno : specific annotations to highlight
+    figsize : (float, float), optional (default: None)
+        Specify width and height of plot.
+    
+    Returns
+    -------
+        g    : ggplot
+        
+    Todo:
+        * find a better way for sorting cell-types along x-axis
+        * report if gene in genes is not found in df
+        * report if duplicate genes
+        * replace hacky x-axis labelling
+    
+    &#34;&#34;&#34;
+    
+    ### Reduce dataframe to genes of interest
+    genes = [str.upper(s) for s in genes]
+    idx = np.char.upper(weights.index.values.astype(str))
+    mask = np.isin(idx, genes)
+    df_tidy = weights[mask]
+    n_genes = len(df_tidy)
+
+    assert (n_genes &gt;= 1), &#34;No matching genes found in dataframe.&#34;
+
+    stddev_tidy = None
+    if stddev is not None:
+        idx = np.char.upper(stddev.index.values.astype(str))
+        mask = np.isin(idx, genes)
+        stddev_tidy = stddev[mask]
+        n_genes = len(df_tidy)
+        assert (n_genes &gt;= 1), &#34;No matching genes found in stddev dataframe.&#34;
+
+    # Constants, height and width of plot.
+    if figsize is None:
+        H = 5*n_genes
+        W = 15
+    else:
+        W, H = figsize
+
+    if ylim is None:
+        ylim = (-1,1)
+    
+    if y_axis_label is None:
+        y_axis_label = &#34;Expression Specificity&#34;
+    
+    ### Convert to tidy / long format if necessary
+    # Org:
+    #       ABC  ACBG  ACMB
+    # POMC  0.0   0.5   0.9
+    # AGRP  0.2   0.0   0.0
+    # LEPR  0.1   0.1   0.4
+    
+    # Tidy:
+    #   gene_name annotation    es_weight
+    # 1 POMC      ABC           0.0
+    # 2 AGRP      ABC           0.6
+    # 3 LEPR      ABC           1.0     
+
+    df_tidy.index.name = None # ensure that index name is none, so &#34;index&#34; is used for id_vars
+    df_tidy = pd.melt(df_tidy.reset_index(), id_vars=&#34;index&#34;, var_name=&#34;annotation&#34;, value_name=&#34;weight&#34;)
+    
+    if stddev_tidy is not None:
+        stddev_tidy.index.name = None
+        stddev_tidy = pd.melt(stddev_tidy.reset_index(), id_vars=&#34;index&#34;, var_name=&#34;annotation&#34;, value_name=&#34;stddev&#34;)
+        df_tidy = df_tidy.merge(stddev_tidy, on=[&#34;index&#34;, &#34;annotation&#34;])
+
+
+    ### Sort values by gene_name and es_weight and add order
+    # Sorted:
+    #   gene_name annotation   es_weight   x_order
+    # 1 AGRP      MOL2         0.0         1
+    # 2 AGRP      ACNT1        0.1         2
+    # 3 AGRP      MOL1         0.2         3
+    
+    df_tidy = df_tidy.sort_values(by=[&#34;index&#34;, &#34;weight&#34;])
+    df_tidy[&#34;order&#34;] = np.arange(len(df_tidy)) + 1
+    
+    ### Generate highlight
+    # Default: highlight top 5
+    if ((highlight_n is None) and (highlight_anno is None)):
+        highlight_n = 5
+
+    # highlight list of 
+    if (highlight_anno is not None):
+        df_tidy[&#34;highlight&#34;] = df_tidy[&#34;annotation&#34;].isin(highlight_anno)
+    elif (highlight_n is not None):
+        df_tidy[&#34;highlight&#34;] = df_tidy.groupby(&#34;index&#34;)[&#34;order&#34;].rank(&#34;first&#34;, ascending=False) &lt;= highlight_n
+    else:
+        df_tidy[&#34;highlight&#34;] = np.array([False] * len(df_tidy))
+    
+    df_highlight = df_tidy[df_tidy[&#34;highlight&#34;]]
+    
+    ### Plot
+    # linear function to compute x_axis text-size.
+    # Mainly depends on number of genes in df per faceet, i.e. len(df_tidy) / len(genes).
+    SIZE_TEXT_X_AXIS = 10.161 - 0.023 * (len(df_tidy) / len(genes))
+    
+    # Limits of the order for each index gene / facet, e.g. [0, 266, 531]
+    # These limits are necessary to only plot the labels
+    order_lims = [0, *(df_tidy.groupby(&#34;index&#34;)[&#34;order&#34;].max().values)]
+    
+    def find_nearest(array,value):
+        array = np.asarray(array)
+        idx = (np.abs(array - value)).argmin()
+        return array[idx]
+        
+    def getbreaks(lims):
+        # function defined for use in debugging
+        l = find_nearest(order_lims, lims[0])
+        r = find_nearest(order_lims, lims[1])
+        breaks = np.arange(l, r)
+        return breaks
+
+    def getlbls(idx):
+        # function defined for use in debugging
+        idx = idx
+        lbls = df_tidy[&#34;annotation&#34;].iloc[idx].values
+        return lbls
+    
+    p = (
+        ### data
+        p9.ggplot(data=df_tidy, mapping=p9.aes(x=&#34;order&#34;, y=&#34;weight&#34;, label=&#34;annotation&#34;))
+
+        ### theming
+        + p9.theme_classic()
+        + p9.theme(
+            figure_size = (W,H),
+            axis_ticks_major_x = p9.element_blank(),
+            axis_text_x = p9.element_text(rotation=75, hjust=0, size=SIZE_TEXT_X_AXIS), # 
+            axis_text_y = p9.element_text(size=W),
+            panel_spacing = 1,
+            strip_background = p9.element_blank()
+        )
+
+        + p9.ylim(ylim[0],ylim[1])
+
+        + p9.labs(
+            x=&#34;&#34;, # e.g. &#34;Cell-type&#34;
+            y=y_axis_label, # e.g. &#34;ES weight&#34;
+        )
+
+        ### viz
+        # all
+        + p9.geom_segment(mapping=p9.aes(x=&#34;order&#34;, xend=&#34;order&#34;, y=0, yend=&#34;weight&#34;),
+                       color=&#34;grey&#34;,
+                       alpha=0.3,
+                       show_legend=False
+        )
+
+        + p9.geom_point(mapping=p9.aes(size=2),
+                     color=&#34;grey&#34;,
+                    show_legend=False
+        )
+
+        # highlight
+        + p9.geom_point(data=df_highlight, mapping=p9.aes(size=2), 
+                     color=&#34;dodgerblue&#34;,
+                    show_legend=False
+        )
+
+        + p9.geom_segment(data=df_highlight, mapping=p9.aes(x=&#34;order&#34;, xend=&#34;order&#34;, y=0, yend=&#34;weight&#34;),
+                       color=&#34;dodgerblue&#34;,
+                       alpha=0.3,
+                       show_legend=False
+        )
+
+        + p9.facet_wrap(&#34;index&#34;,
+                     scales=&#34;free&#34;,
+                     nrow=n_genes
+                    )
+        
+        + p9.scale_x_continuous(
+            # order_scale is continuous across all annotations
+            # so the scale will look weird for each facet, e.g.
+            # facet 1 may have order 1-7, and facet 2 has order 8-14.
+            # therefore we must use a labeller function to get the 
+            # correct labels for each interval of order.
+            breaks = lambda lims: getbreaks(lims),
+            labels = lambda idx: getlbls(idx)
+        )
+    )
+    
+    if stddev_tidy is not None:
+        p = p + p9.geom_errorbar(mapping=p9.aes(ymin=&#34;weight-stddev&#34;, ymax=&#34;weight+stddev&#34;), 
+                                    color=&#34;grey&#34;, width=0.1)\
+                + p9.geom_errorbar(data=df_highlight, mapping=p9.aes(ymin=&#34;weight-stddev&#34;, ymax=&#34;weight+stddev&#34;),
+                                color=&#34;dodgerblue&#34;, width=0.1)
+
+    # add labels last for them to be on top
+    p = p + p9.geom_label(data=df_highlight,
+                    color = &#34;dodgerblue&#34;,
+                    adjust_text = {&#39;expand_points&#39;: (2,2)}
+        )
+
+    return p</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cellex.plotting" href="index.html">cellex.plotting</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="cellex.plotting.gene_profile.gene_profile" href="#cellex.plotting.gene_profile.gene_profile">gene_profile</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

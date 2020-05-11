@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>cellex.esobject API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>cellex.esobject</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import h5py
+import numpy as np
+import os
+import pandas as pd
+import sys
+from .summarydata import SummaryData
+from . import preprocessing
+from . import metrics
+from . import utils
+from cellex import ES_METRICS
+
+
+class ESObject(object):
+    &#34;&#34;&#34;A class that integrates the CELLEX workflow to compute ES
+
+    Workflow: filter non-expressed, normalize, filter non-varying, compute
+    ESw, compute p-values, compute ESw*, compute ESmu and ESsd
+
+
+    Attributes
+    ----------
+    results : dict
+    summary_data : SummaryData
+
+    Methods
+    -------
+    compute(self, esms: list=None, verbose: bool=False, compute_meta: bool=True) -&gt; None:
+    save_as_csv(self, file_prefix: str=None, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+    save_as_hdf(self, filename: str, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;
+    
+    def __init__(self, 
+                data: pd.DataFrame, 
+                annotation: pd.Series,
+                dtype: str=&#34;float32&#34;,
+                remove_non_expressed: bool=True,
+                normalize: bool=True,
+                anova: bool=True,
+                verbose: bool=False
+                ):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        data: DataFrame
+            Original expression data.
+        
+        annotation : Series
+            Annotation to group cells by.
+        
+        dtype : str, optional (default: &#34;float32)
+            Datatype to use.
+        
+        remove_non_expressed : bool, optional (default: True)
+            Remove non-expressed genes from dataframe.
+        
+        normalize : bool, optional (default: True)
+            Normalize data.
+        
+        anova : bool, optional (default: True)
+            Perform anova to remove genes with low variance.
+        &#34;&#34;&#34;
+        
+        ### Preprocessing steps
+        # default: cast input datatype to type with smaller memory footprint
+        data = data.astype(dtype=dtype)
+
+        # parse data and metadata, i.e. run various quality checks
+        data, annotation = utils.parse_input(data, annotation, verbose)
+        
+        if remove_non_expressed:
+            data = preprocessing.remove_non_expressed(df=data, verbose=verbose)
+        
+        if normalize:
+            data = preprocessing.log_normalize(df=data, verbose=verbose)
+        
+        if anova:
+            # anova returns dict of two dataframes. Select the filtered &#34;df&#34;
+            data = preprocessing.anova(df=data, annotation=annotation, verbose=verbose)[&#34;df&#34;]
+
+        self.results = {}
+
+        ### Create SummaryData object
+        self.summary_data = SummaryData(data, annotation)
+    
+    def compute(self,
+                esms: list=None, \
+                verbose: bool=False, \
+                compute_meta: bool=True) -&gt; None:
+        &#34;&#34;&#34;Compute ESw using specified ES metrics using object annotation.
+
+        Results are stored in a dictionary with key:
+            &lt;esm&gt;.&lt;esw_type&gt;
+
+        Parameters
+        ----------
+        esms : list(str), optional (default: None)
+            List of ES metrics to compute
+        verbose : bool, optional (default: False)
+            Print progress report.
+        compute_meta: bool, optional (default: True)
+            Compute ESmu, ESsd, and prerequisites.
+
+        Returns
+        -------
+            None
+
+
+        &#34;&#34;&#34;
+        
+        if esms is None:
+            esms = ES_METRICS
+
+        for m in esms:
+            if (m.lower() not in ES_METRICS):
+                raise ValueError(&#34;No such metric: &#34;, m.lower())
+
+        results = {}
+
+        for m in esms:
+            esm_result = getattr(metrics, m.lower())(self.summary_data, verbose, compute_meta)
+            results.update(esm_result)
+
+        if compute_meta:
+            esws = [val for key,val in results.items() if (&#34;esw_s&#34; in key)]
+            results[&#34;esmu&#34;] = metrics.es_mu(esws, verbose)
+            results[&#34;essd&#34;] = metrics.es_sd(esws, verbose)
+
+        if verbose:
+            print(&#34;Computed %a.&#34; % list(results.keys()))
+
+        self.results.update(results)
+
+        return None
+
+    def save_as_csv(self, file_prefix: str=None, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+        &#34;&#34;&#34;Save results as multiple csv files
+
+        Saves all results in self.results to a directory: /out_###
+        Results include esw, esw_null, pvals, qvals and ESmu.
+
+        Parameters
+        ----------
+        file_prefix : str, optional (default: None)
+            Prefix to append to filenames, i.e. 
+            &lt;prefix&gt;.&lt;metric&gt;.&lt;item&gt;.csv.gz
+
+        path : str, optional (default: None)
+            Path to save to. If None, saves to &#34;out&#34;.
+
+        keys : list, optional (default: all keys in self.results)
+            Keys of results in self.results dictionary.
+            May be used for saving only specific results.
+
+        verbose : bool, optional (default: False)
+            Print progress report.
+
+        Returns
+        -------
+        None
+        &#34;&#34;&#34;
+        if verbose:
+            print(&#34;Saving results as csv to disk ...&#34;)
+        
+        if keys is None:
+            keys = [&#34;esmu&#34;, &#34;essd&#34;]
+
+        if &#34;all&#34; in keys:
+            keys = self.results.keys()
+
+        if path is None:
+            path = &#34;out&#34;
+
+        if file_prefix is None:
+            file_prefix = &#34;&#34;
+        else:
+            file_prefix = &#34;{}.&#34;.format(file_prefix)
+
+        os.makedirs(path, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+        ### Save results
+        for k in keys:
+            try:
+                df = self.results[k]
+                fp = &#34;{}/{}{}.csv.gz&#34;.format(path, file_prefix, k)
+                df.to_csv(fp, compression=&#34;gzip&#34;)
+                if verbose:
+                    print(&#34;  Saved: {}&#34;.format(fp))
+            except KeyError:
+                print(&#34;  WARNING: Key \&#34;{}\&#34; does not exist in ESObject results. No data saved.&#34;.format(k))
+
+        if verbose:
+            print(&#34;Finished saving results to {}&#34;.format(path))
+    
+
+    def save_as_hdf(self, filename: str, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+        &#34;&#34;&#34;Save results to a single hdf file
+
+        Parameters
+        ----------
+        filename : str
+            Filename to write to.
+
+        path : str, optional (default: None)
+            Path to save to. If None, saves to &#34;out&#34;.
+
+        keys : list, optional (default: all keys in self.results)
+            Keys of results in self.results dictionary.
+            May be used for saving only specific results.
+
+        verbose : bool, optional (default: False)
+            Print progress report.
+
+        Returns
+        -------
+        None
+
+        &#34;&#34;&#34;
+        if verbose:
+            print(&#34;Saving results as hdf to disk ...&#34;)
+        
+        if keys is None:
+            keys = self.results.keys()
+        
+        assert (len(keys) &gt; 0), &#34;No results to save in ESObject.results.&#34;
+
+        if path is None:
+            path = &#34;out&#34;
+        
+        filename = &#34;{}/{}.h5&#34;.format(path, filename)
+
+        os.makedirs(path, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+        with h5py.File(filename, &#34;w-&#34;) as f:
+            axis0 = self.summary_data.mean.columns.values.astype(&#34;S&#34;)
+            axis1 = self.summary_data.mean.index.values.astype(&#34;S&#34;)
+            f[&#34;metadata/axis0&#34;] = axis0
+            f[&#34;metadata/axis1&#34;] = axis1
+
+            if verbose:
+                print(&#34;  Saved: metadata/axis0&#34;)
+                print(&#34;  Saved: metadata/axis0&#34;)
+
+            for k in keys:
+                f[&#34;data/{}&#34;.format(k)] = self.results[k].values
+                if verbose:
+                    print(&#34;  Saved: data/{}&#34;.format(k))
+
+            f.flush()
+
+        if verbose:
+            print(&#34;Finished saving results to {}&#34;.format(filename))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="cellex.esobject.ESObject"><code class="flex name class">
+<span>class <span class="ident">ESObject</span></span>
+<span>(</span><span>data: pandas.core.frame.DataFrame, annotation: pandas.core.series.Series, dtype: str = 'float32', remove_non_expressed: bool = True, normalize: bool = True, anova: bool = True, verbose: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class that integrates the CELLEX workflow to compute ES</p>
+<p>Workflow: filter non-expressed, normalize, filter non-varying, compute
+ESw, compute p-values, compute ESw*, compute ESmu and ESsd</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>results</code></strong> :&ensp;<code>dict</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>summary_data</code></strong> :&ensp;<code>SummaryData</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="methods">Methods</h2>
+<p>compute(self, esms: list=None, verbose: bool=False, compute_meta: bool=True) -&gt; None:
+save_as_csv(self, file_prefix: str=None, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+save_as_hdf(self, filename: str, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Original expression data.</dd>
+<dt><strong><code>annotation</code></strong> :&ensp;<code>Series</code></dt>
+<dd>Annotation to group cells by.</dd>
+<dt><strong><code>dtype</code></strong> :&ensp;<code>str</code>, optional <code>(default: "float32)</code></dt>
+<dd>Datatype to use.</dd>
+<dt><strong><code>remove_non_expressed</code></strong> :&ensp;<code>bool</code>, optional <code>(default: True)</code></dt>
+<dd>Remove non-expressed genes from dataframe.</dd>
+<dt><strong><code>normalize</code></strong> :&ensp;<code>bool</code>, optional <code>(default: True)</code></dt>
+<dd>Normalize data.</dd>
+<dt><strong><code>anova</code></strong> :&ensp;<code>bool</code>, optional <code>(default: True)</code></dt>
+<dd>Perform anova to remove genes with low variance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ESObject(object):
+    &#34;&#34;&#34;A class that integrates the CELLEX workflow to compute ES
+
+    Workflow: filter non-expressed, normalize, filter non-varying, compute
+    ESw, compute p-values, compute ESw*, compute ESmu and ESsd
+
+
+    Attributes
+    ----------
+    results : dict
+    summary_data : SummaryData
+
+    Methods
+    -------
+    compute(self, esms: list=None, verbose: bool=False, compute_meta: bool=True) -&gt; None:
+    save_as_csv(self, file_prefix: str=None, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+    save_as_hdf(self, filename: str, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;
+    
+    def __init__(self, 
+                data: pd.DataFrame, 
+                annotation: pd.Series,
+                dtype: str=&#34;float32&#34;,
+                remove_non_expressed: bool=True,
+                normalize: bool=True,
+                anova: bool=True,
+                verbose: bool=False
+                ):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        data: DataFrame
+            Original expression data.
+        
+        annotation : Series
+            Annotation to group cells by.
+        
+        dtype : str, optional (default: &#34;float32)
+            Datatype to use.
+        
+        remove_non_expressed : bool, optional (default: True)
+            Remove non-expressed genes from dataframe.
+        
+        normalize : bool, optional (default: True)
+            Normalize data.
+        
+        anova : bool, optional (default: True)
+            Perform anova to remove genes with low variance.
+        &#34;&#34;&#34;
+        
+        ### Preprocessing steps
+        # default: cast input datatype to type with smaller memory footprint
+        data = data.astype(dtype=dtype)
+
+        # parse data and metadata, i.e. run various quality checks
+        data, annotation = utils.parse_input(data, annotation, verbose)
+        
+        if remove_non_expressed:
+            data = preprocessing.remove_non_expressed(df=data, verbose=verbose)
+        
+        if normalize:
+            data = preprocessing.log_normalize(df=data, verbose=verbose)
+        
+        if anova:
+            # anova returns dict of two dataframes. Select the filtered &#34;df&#34;
+            data = preprocessing.anova(df=data, annotation=annotation, verbose=verbose)[&#34;df&#34;]
+
+        self.results = {}
+
+        ### Create SummaryData object
+        self.summary_data = SummaryData(data, annotation)
+    
+    def compute(self,
+                esms: list=None, \
+                verbose: bool=False, \
+                compute_meta: bool=True) -&gt; None:
+        &#34;&#34;&#34;Compute ESw using specified ES metrics using object annotation.
+
+        Results are stored in a dictionary with key:
+            &lt;esm&gt;.&lt;esw_type&gt;
+
+        Parameters
+        ----------
+        esms : list(str), optional (default: None)
+            List of ES metrics to compute
+        verbose : bool, optional (default: False)
+            Print progress report.
+        compute_meta: bool, optional (default: True)
+            Compute ESmu, ESsd, and prerequisites.
+
+        Returns
+        -------
+            None
+
+
+        &#34;&#34;&#34;
+        
+        if esms is None:
+            esms = ES_METRICS
+
+        for m in esms:
+            if (m.lower() not in ES_METRICS):
+                raise ValueError(&#34;No such metric: &#34;, m.lower())
+
+        results = {}
+
+        for m in esms:
+            esm_result = getattr(metrics, m.lower())(self.summary_data, verbose, compute_meta)
+            results.update(esm_result)
+
+        if compute_meta:
+            esws = [val for key,val in results.items() if (&#34;esw_s&#34; in key)]
+            results[&#34;esmu&#34;] = metrics.es_mu(esws, verbose)
+            results[&#34;essd&#34;] = metrics.es_sd(esws, verbose)
+
+        if verbose:
+            print(&#34;Computed %a.&#34; % list(results.keys()))
+
+        self.results.update(results)
+
+        return None
+
+    def save_as_csv(self, file_prefix: str=None, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+        &#34;&#34;&#34;Save results as multiple csv files
+
+        Saves all results in self.results to a directory: /out_###
+        Results include esw, esw_null, pvals, qvals and ESmu.
+
+        Parameters
+        ----------
+        file_prefix : str, optional (default: None)
+            Prefix to append to filenames, i.e. 
+            &lt;prefix&gt;.&lt;metric&gt;.&lt;item&gt;.csv.gz
+
+        path : str, optional (default: None)
+            Path to save to. If None, saves to &#34;out&#34;.
+
+        keys : list, optional (default: all keys in self.results)
+            Keys of results in self.results dictionary.
+            May be used for saving only specific results.
+
+        verbose : bool, optional (default: False)
+            Print progress report.
+
+        Returns
+        -------
+        None
+        &#34;&#34;&#34;
+        if verbose:
+            print(&#34;Saving results as csv to disk ...&#34;)
+        
+        if keys is None:
+            keys = [&#34;esmu&#34;, &#34;essd&#34;]
+
+        if &#34;all&#34; in keys:
+            keys = self.results.keys()
+
+        if path is None:
+            path = &#34;out&#34;
+
+        if file_prefix is None:
+            file_prefix = &#34;&#34;
+        else:
+            file_prefix = &#34;{}.&#34;.format(file_prefix)
+
+        os.makedirs(path, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+        ### Save results
+        for k in keys:
+            try:
+                df = self.results[k]
+                fp = &#34;{}/{}{}.csv.gz&#34;.format(path, file_prefix, k)
+                df.to_csv(fp, compression=&#34;gzip&#34;)
+                if verbose:
+                    print(&#34;  Saved: {}&#34;.format(fp))
+            except KeyError:
+                print(&#34;  WARNING: Key \&#34;{}\&#34; does not exist in ESObject results. No data saved.&#34;.format(k))
+
+        if verbose:
+            print(&#34;Finished saving results to {}&#34;.format(path))
+    
+
+    def save_as_hdf(self, filename: str, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+        &#34;&#34;&#34;Save results to a single hdf file
+
+        Parameters
+        ----------
+        filename : str
+            Filename to write to.
+
+        path : str, optional (default: None)
+            Path to save to. If None, saves to &#34;out&#34;.
+
+        keys : list, optional (default: all keys in self.results)
+            Keys of results in self.results dictionary.
+            May be used for saving only specific results.
+
+        verbose : bool, optional (default: False)
+            Print progress report.
+
+        Returns
+        -------
+        None
+
+        &#34;&#34;&#34;
+        if verbose:
+            print(&#34;Saving results as hdf to disk ...&#34;)
+        
+        if keys is None:
+            keys = self.results.keys()
+        
+        assert (len(keys) &gt; 0), &#34;No results to save in ESObject.results.&#34;
+
+        if path is None:
+            path = &#34;out&#34;
+        
+        filename = &#34;{}/{}.h5&#34;.format(path, filename)
+
+        os.makedirs(path, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+        with h5py.File(filename, &#34;w-&#34;) as f:
+            axis0 = self.summary_data.mean.columns.values.astype(&#34;S&#34;)
+            axis1 = self.summary_data.mean.index.values.astype(&#34;S&#34;)
+            f[&#34;metadata/axis0&#34;] = axis0
+            f[&#34;metadata/axis1&#34;] = axis1
+
+            if verbose:
+                print(&#34;  Saved: metadata/axis0&#34;)
+                print(&#34;  Saved: metadata/axis0&#34;)
+
+            for k in keys:
+                f[&#34;data/{}&#34;.format(k)] = self.results[k].values
+                if verbose:
+                    print(&#34;  Saved: data/{}&#34;.format(k))
+
+            f.flush()
+
+        if verbose:
+            print(&#34;Finished saving results to {}&#34;.format(filename))</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="cellex.esobject.ESObject.compute"><code class="name flex">
+<span>def <span class="ident">compute</span></span>(<span>self, esms: list = None, verbose: bool = False, compute_meta: bool = True) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute ESw using specified ES metrics using object annotation.</p>
+<p>Results are stored in a dictionary with key:
+<esm>.<esw_type></p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>esms</code></strong> :&ensp;<code>list(str)</code>, optional <code>(default: None)</code></dt>
+<dd>List of ES metrics to compute</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional <code>(default: False)</code></dt>
+<dd>Print progress report.</dd>
+<dt><strong><code>compute_meta</code></strong> :&ensp;<code>bool</code>, optional <code>(default: True)</code></dt>
+<dd>Compute ESmu, ESsd, and prerequisites.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>None
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute(self,
+            esms: list=None, \
+            verbose: bool=False, \
+            compute_meta: bool=True) -&gt; None:
+    &#34;&#34;&#34;Compute ESw using specified ES metrics using object annotation.
+
+    Results are stored in a dictionary with key:
+        &lt;esm&gt;.&lt;esw_type&gt;
+
+    Parameters
+    ----------
+    esms : list(str), optional (default: None)
+        List of ES metrics to compute
+    verbose : bool, optional (default: False)
+        Print progress report.
+    compute_meta: bool, optional (default: True)
+        Compute ESmu, ESsd, and prerequisites.
+
+    Returns
+    -------
+        None
+
+
+    &#34;&#34;&#34;
+    
+    if esms is None:
+        esms = ES_METRICS
+
+    for m in esms:
+        if (m.lower() not in ES_METRICS):
+            raise ValueError(&#34;No such metric: &#34;, m.lower())
+
+    results = {}
+
+    for m in esms:
+        esm_result = getattr(metrics, m.lower())(self.summary_data, verbose, compute_meta)
+        results.update(esm_result)
+
+    if compute_meta:
+        esws = [val for key,val in results.items() if (&#34;esw_s&#34; in key)]
+        results[&#34;esmu&#34;] = metrics.es_mu(esws, verbose)
+        results[&#34;essd&#34;] = metrics.es_sd(esws, verbose)
+
+    if verbose:
+        print(&#34;Computed %a.&#34; % list(results.keys()))
+
+    self.results.update(results)
+
+    return None</code></pre>
+</details>
+</dd>
+<dt id="cellex.esobject.ESObject.save_as_csv"><code class="name flex">
+<span>def <span class="ident">save_as_csv</span></span>(<span>self, file_prefix: str = None, path: str = None, keys: list = None, verbose: bool = False) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save results as multiple csv files</p>
+<p>Saves all results in self.results to a directory: /out_###
+Results include esw, esw_null, pvals, qvals and ESmu.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>file_prefix</code></strong> :&ensp;<code>str</code>, optional <code>(default: None)</code></dt>
+<dd>Prefix to append to filenames, i.e.
+<prefix>.<metric>.<item>.csv.gz</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code>, optional <code>(default: None)</code></dt>
+<dd>Path to save to. If None, saves to "out".</dd>
+<dt><strong><code>keys</code></strong> :&ensp;<code>list</code>, optional <code>(default: all keys in self.results)</code></dt>
+<dd>Keys of results in self.results dictionary.
+May be used for saving only specific results.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional <code>(default: False)</code></dt>
+<dd>Print progress report.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_as_csv(self, file_prefix: str=None, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;Save results as multiple csv files
+
+    Saves all results in self.results to a directory: /out_###
+    Results include esw, esw_null, pvals, qvals and ESmu.
+
+    Parameters
+    ----------
+    file_prefix : str, optional (default: None)
+        Prefix to append to filenames, i.e. 
+        &lt;prefix&gt;.&lt;metric&gt;.&lt;item&gt;.csv.gz
+
+    path : str, optional (default: None)
+        Path to save to. If None, saves to &#34;out&#34;.
+
+    keys : list, optional (default: all keys in self.results)
+        Keys of results in self.results dictionary.
+        May be used for saving only specific results.
+
+    verbose : bool, optional (default: False)
+        Print progress report.
+
+    Returns
+    -------
+    None
+    &#34;&#34;&#34;
+    if verbose:
+        print(&#34;Saving results as csv to disk ...&#34;)
+    
+    if keys is None:
+        keys = [&#34;esmu&#34;, &#34;essd&#34;]
+
+    if &#34;all&#34; in keys:
+        keys = self.results.keys()
+
+    if path is None:
+        path = &#34;out&#34;
+
+    if file_prefix is None:
+        file_prefix = &#34;&#34;
+    else:
+        file_prefix = &#34;{}.&#34;.format(file_prefix)
+
+    os.makedirs(path, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+    ### Save results
+    for k in keys:
+        try:
+            df = self.results[k]
+            fp = &#34;{}/{}{}.csv.gz&#34;.format(path, file_prefix, k)
+            df.to_csv(fp, compression=&#34;gzip&#34;)
+            if verbose:
+                print(&#34;  Saved: {}&#34;.format(fp))
+        except KeyError:
+            print(&#34;  WARNING: Key \&#34;{}\&#34; does not exist in ESObject results. No data saved.&#34;.format(k))
+
+    if verbose:
+        print(&#34;Finished saving results to {}&#34;.format(path))</code></pre>
+</details>
+</dd>
+<dt id="cellex.esobject.ESObject.save_as_hdf"><code class="name flex">
+<span>def <span class="ident">save_as_hdf</span></span>(<span>self, filename: str, path: str = None, keys: list = None, verbose: bool = False) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save results to a single hdf file</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filename to write to.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code>, optional <code>(default: None)</code></dt>
+<dd>Path to save to. If None, saves to "out".</dd>
+<dt><strong><code>keys</code></strong> :&ensp;<code>list</code>, optional <code>(default: all keys in self.results)</code></dt>
+<dd>Keys of results in self.results dictionary.
+May be used for saving only specific results.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional <code>(default: False)</code></dt>
+<dd>Print progress report.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_as_hdf(self, filename: str, path: str=None, keys: list=None, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;Save results to a single hdf file
+
+    Parameters
+    ----------
+    filename : str
+        Filename to write to.
+
+    path : str, optional (default: None)
+        Path to save to. If None, saves to &#34;out&#34;.
+
+    keys : list, optional (default: all keys in self.results)
+        Keys of results in self.results dictionary.
+        May be used for saving only specific results.
+
+    verbose : bool, optional (default: False)
+        Print progress report.
+
+    Returns
+    -------
+    None
+
+    &#34;&#34;&#34;
+    if verbose:
+        print(&#34;Saving results as hdf to disk ...&#34;)
+    
+    if keys is None:
+        keys = self.results.keys()
+    
+    assert (len(keys) &gt; 0), &#34;No results to save in ESObject.results.&#34;
+
+    if path is None:
+        path = &#34;out&#34;
+    
+    filename = &#34;{}/{}.h5&#34;.format(path, filename)
+
+    os.makedirs(path, exist_ok=True) # make dir if it doesn&#39;t already exist
+
+    with h5py.File(filename, &#34;w-&#34;) as f:
+        axis0 = self.summary_data.mean.columns.values.astype(&#34;S&#34;)
+        axis1 = self.summary_data.mean.index.values.astype(&#34;S&#34;)
+        f[&#34;metadata/axis0&#34;] = axis0
+        f[&#34;metadata/axis1&#34;] = axis1
+
+        if verbose:
+            print(&#34;  Saved: metadata/axis0&#34;)
+            print(&#34;  Saved: metadata/axis0&#34;)
+
+        for k in keys:
+            f[&#34;data/{}&#34;.format(k)] = self.results[k].values
+            if verbose:
+                print(&#34;  Saved: data/{}&#34;.format(k))
+
+        f.flush()
+
+    if verbose:
+        print(&#34;Finished saving results to {}&#34;.format(filename))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cellex" href="index.html">cellex</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="cellex.esobject.ESObject" href="#cellex.esobject.ESObject">ESObject</a></code></h4>
+<ul class="">
+<li><code><a title="cellex.esobject.ESObject.compute" href="#cellex.esobject.ESObject.compute">compute</a></code></li>
+<li><code><a title="cellex.esobject.ESObject.save_as_csv" href="#cellex.esobject.ESObject.save_as_csv">save_as_csv</a></code></li>
+<li><code><a title="cellex.esobject.ESObject.save_as_hdf" href="#cellex.esobject.ESObject.save_as_hdf">save_as_hdf</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
