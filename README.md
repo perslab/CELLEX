@@ -5,7 +5,22 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 
 ![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
-See [Timshel (bioRxiv, 2020): Mapping heritability of obesity by cell types](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1) for further details on the CELLEX method. See also the [CELLEX Wiki](https://github.com/perslab/CELLEX/wiki).
+**Contents**:
+- [Documentation](https://github.com/perslab/CELLECT#documentation)
+- [Quick Start](https://github.com/perslab/CELLECT#quick-start)
+- [Tutorials](https://github.com/perslab/CELLECT#tutorials)
+- [Contact and References](https://github.com/perslab/CELLECT#about)
+
+# Documentation
+The documentation for CELLEX can be accessed in the following ways:
+
+- **[CELLEX Wiki](https://github.com/perslab/CELLEX/wiki)** : main documentation on the usage of CELLEX
+- **Pre-print article**: technical details on the CELLEX method. Pre-print link: _Mapping heritability of obesity by cell types_ 
+([Timshel bioRxiv, 2020](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1), Supplementary Material)
+
+
+We are continually updating the documentation for CELLEX. If some information is missing, please submit your request or question via our [issue tracker](https://github.com/perslab/CELLECT/issues).
+
 
 # Quick start
 This brief tutorial showcases the core features of CELLEX.
@@ -137,7 +152,7 @@ Various tutorials and walkthroughs will be made available here, while the Wiki i
 - Pascal Nordgren Timshel (University of Copenhagen) [@ptimshel](https://twitter.com/ptimshel)
 
 ## Contact
-Please create an issue in this repo, if you encounter any problems using CELLEX. Alternatively, you may write an email to timshel(at)sund.ku.dk
+Please create an [issue](https://github.com/perslab/CELLECT/issues) in this repo, if you encounter any problems using CELLEX. Alternatively, you may write an email to timshel(at)sund.ku.dk
 
 ## References
 
