@@ -6,10 +6,10 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 ![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
 **Contents**:
-- [Documentation](https://github.com/perslab/CELLECT#documentation)
-- [Quick Start](https://github.com/perslab/CELLECT#quick-start)
-- [Tutorials](https://github.com/perslab/CELLECT#tutorials)
-- [Contact and References](https://github.com/perslab/CELLECT#about)
+- [Documentation](https://github.com/perslab/CELLEX#documentation)
+- [Quick Start](https://github.com/perslab/CELLEX#quick-start)
+- [Tutorials](https://github.com/perslab/CELLEX#tutorials)
+- [Contact and References](https://github.com/perslab/CELLEX#about)
 
 # Documentation
 The documentation for CELLEX can be accessed in the following ways:
@@ -141,8 +141,8 @@ Shape: *m* genes by *x* unique annotations. N.B. a number of genes may be remove
 # Tutorials
 Various tutorials and walkthroughs will be made available here, while the Wiki is in the making. These Jupyter Notebooks cover everything from downloading CELLEX and data to analysis and plotting.
 
-* [Demo: Downloading and running CELLEX with sample Mousebrain Atlas data](docs/tutorials/demo_mousebrain_vascular_cells.ipynb)
-* [Demo: Downloading and running CELLEX with sample MOCA data](docs/tutorials/demo_moca_100k.ipynb)
+* [Demo: Downloading and running CELLEX with sample Mousebrain Atlas data](tutorials/demo_mousebrain_vascular_cells.ipynb)
+* [Demo: Downloading and running CELLEX with sample MOCA data](tutorials/demo_moca_100k.ipynb)
 
 
 # About
