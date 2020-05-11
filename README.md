@@ -5,7 +5,7 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 
 ![CELLEX_overview](https://user-images.githubusercontent.com/5487016/72679348-9662cf80-3aae-11ea-9d07-c4cea1daec5f.png)
 
-**Contents**:
+# Contents
 - [Documentation](https://github.com/perslab/CELLEX#documentation)
 - [Quick Start](https://github.com/perslab/CELLEX#quick-start)
 - [Tutorials](https://github.com/perslab/CELLEX#tutorials)
@@ -15,6 +15,7 @@ CELLEX (CELL-type EXpression-specificity) is a tool for computing cell-type Expr
 The documentation for CELLEX can be accessed in the following ways:
 
 - **[CELLEX Wiki](https://github.com/perslab/CELLEX/wiki)** : main documentation on the usage of CELLEX
+- **[CELLEX API docs](https://perslab.github.io/CELLEX/)**: documentation of CELLEX API/functions
 - **Pre-print article**: technical details on the CELLEX method. Pre-print link: _Mapping heritability of obesity by cell types_ 
 ([Timshel bioRxiv, 2020](https://www.biorxiv.org/content/10.1101/2020.01.27.920033v1), Supplementary Material)
 
