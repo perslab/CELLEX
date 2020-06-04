@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 ### Changed
+* anova no longer uses multiprocessing. This should decrease memory usage significantly.
 ### Deprecated
 ### Removed
 ### Fixed
