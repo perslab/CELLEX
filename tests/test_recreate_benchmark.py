@@ -2,6 +2,11 @@ import pandas as pd
 import cellex
 from pathlib import Path
 
+# To run tests:
+# * activate your venv and ensure cellex is not installed
+# * navigate to CELLEX/
+# * run `python -m pytest`
+
 BENCHMARK_DIR = Path(__file__).parent / Path('_benchmark/')
 
 
