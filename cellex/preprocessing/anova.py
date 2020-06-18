@@ -1,5 +1,4 @@
 import numpy as np
-import multiprocessing as mp
 import pandas as pd
 import time
 import datetime
@@ -54,20 +53,22 @@ def anova(df: pd.DataFrame, annotation: np.ndarray, threshold: np.float=0.00001,
         print("Preprocessing - running ANOVA ... ", end='')
 
     ### Split annotation into groups
-    uniques = np.unique(annotation)
-    idx = [np.where(annotation == i)[0] for i in uniques]
-
+    # we use pandas.unique, as it is faster than numpy for big arrays
+    # furthermore, it does not sort the groups and thus the original
+    # order of indexes is maintained, improving locality
+    idx = [np.where(annotation == i)[0] for i in pd.unique(annotation)]
+    
     ### Iterate over genes and compute ANOVA for each gene
-    # for i in range(len(df.values)) iterates over genes (rows)
-    # *[df[i,g] for g in idx] splits expression values for 
-    # one gene into groups according to the annotation
-    with mp.Pool(processes=mp.cpu_count()) as pool:
-        args = [[df.values[i,g] for g in idx] for i in range(len(df.values))]
-        result = pool.starmap(func=stats.f_oneway, iterable=args)
+    def _anova_(row, groups):
+        """Apply ANOVA to a vector
+        Split the annotation by 
+        """
+        fval, pval = stats.f_oneway(*[row[g] for g in groups])
+        return np.array([fval, pval])
 
     ### Create dataframe for ANOVA results
-    f = np.array(result)
-    
+    f = np.apply_along_axis(func1d=_anova_, axis=1, arr=df.values, groups=(idx))
+
     df_anova = pd.DataFrame({"statistic": f[:,0], 
                          "pvalue": f[:,1]}, 
                         index=df.index)

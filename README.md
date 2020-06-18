@@ -111,7 +111,7 @@ eso.results["esmu"]
 The ESmu scores may be used with **[CELLECT](https://github.com/perslab/CELLECT)**. CELLECT requires that genes are in the *Human Ensembl Gene ID* format. CELLEX provides a simple renaming utility for this purpose:
 
 ```python
-cellex.utils.mapping.ens_mouse_to_ens_human(eso.results["esmu"], drop_unmapped=True, verbose=True)
+cellex.utils.mapping.mouse_ens_to_human_ens(eso.results["esmu"], drop_unmapped=True, verbose=True)
 ```
 
 #### Save ESmu

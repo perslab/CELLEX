@@ -1,3 +1,4 @@
-from .mgi_mouse_to_ens_mouse import mgi_mouse_to_ens_mouse
-from .ens_mouse_to_ens_human import ens_mouse_to_ens_human
-from .ens_human_to_symbol import ens_human_to_symbol
+from .mouse_ens_to_human_ens import mouse_ens_to_human_ens
+from .mouse_symbol_to_mouse_ens import mouse_symbol_to_mouse_ens
+from .human_ens_to_human_symbol import human_ens_to_human_symbol
+from .human_symbol_to_human_ens import human_symbol_to_human_ens

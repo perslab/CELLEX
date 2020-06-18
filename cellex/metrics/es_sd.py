@@ -35,6 +35,8 @@ def es_sd(esws: list, verbose: bool=False) -> pd.DataFrame:
                             columns=esws[0].columns.values, 
                             index=esws[0].index.values)
 
+    es_sd.index.name = "gene"
+
     if verbose:
         td = datetime.timedelta(seconds=(time.time() - start))
         print("    finished in %d min %d sec" % (divmod(td.seconds, 60)))
