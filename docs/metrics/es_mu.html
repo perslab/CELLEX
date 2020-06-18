@@ -61,6 +61,8 @@ def es_mu(esws: list, verbose: bool=False) -&gt; pd.DataFrame:
                             columns=esws[0].columns.values, 
                             index=esws[0].index.values)
 
+    esmu.index.name = &#34;gene&#34;
+
     if verbose:
         td = datetime.timedelta(seconds=(time.time() - start))
         print(&#34;    finished in %d min %d sec&#34; % (divmod(td.seconds, 60)))
@@ -128,6 +130,8 @@ def es_mu(esws: list, verbose: bool=False) -&gt; pd.DataFrame:
     esmu = pd.DataFrame(data=np.mean(([df.values for df in esws]), axis=0), 
                             columns=esws[0].columns.values, 
                             index=esws[0].index.values)
+
+    esmu.index.name = &#34;gene&#34;
 
     if verbose:
         td = datetime.timedelta(seconds=(time.time() - start))

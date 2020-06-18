@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>cellex.utils.mapping.ens_human_to_symbol API documentation</title>
+<title>cellex.utils.mapping.human_symbol_to_human_ens API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>cellex.utils.mapping.ens_human_to_symbol</code></h1>
+<h1 class="title">Module <code>cellex.utils.mapping.human_symbol_to_human_ens</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -28,44 +28,45 @@
 import pandas as pd
 import pkg_resources
 
-def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -&gt; None:
-    &#34;&#34;&#34;
-    Maps human ensembl gene id&#39;s to gene names inplace.
+def human_symbol_to_human_ens(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;Map dataframe index human gene symbol to human ensemble id inplace
 
-    Args:
-        df_unmapped:    a dataframe in tidy-format.
-        drop_unmapped:  True: remove unmapped genes (rows) from df, False: keep original index
-        verbose:        explicitly print status or not
+    Parameters
+    ----------
+    df_unmapped : DataFrame
+        DataFrame with gene names of appropriate format (e.g. ensembl) as index
+    
+    drop_unmapped : bool, optional (default: False)
+        Remove unmapped genes (rows) from df, False: keep original index.
+    
+    verbose : bool, optional (default: False)
+        Print progress report.
 
-    Returns:
+    Returns
+    -------
         None
     
-    Todo:
-        * modify drop_unmapped to unmapped: {&#34;drop&#34;, &#34;keep&#34;, &#34;na&#34;}
+    TODO
+    ----
         * make one mapping-function for all cases
+        * modify drop_unmapped to unmapped: {&#34;drop&#34;, &#34;keep&#34;, &#34;na&#34;}
         * support for custom mapping file
         * handle lower/upper/mixed casee letters in index
-        * handle case for empty df
+    
     &#34;&#34;&#34;
+
     assert (len(df_unmapped) &gt; 0), &#34;Empty dataframe.&#34;
     
-    PREFIX = &#34;ENSG&#34;
-
     if verbose:
-        print(&#34;Mapping: human ensembl gene id&#39;s --&gt; gene names ...&#34;)
+        print(&#34;Mapping: human gene symbols --&gt; human ensembl gene id&#39;s ...&#34;)
     
-    # Check that genes are correct format
-    mask_peek = np.array([PREFIX in str(idx) for idx in df_unmapped.index.values])
-
-    if not (mask_peek.any()):
-        print(&#34;Dataframe index contains values that are not ensemble format or not human ensembl id: &#34;, df_unmapped.index.values[mask_peek])
     resource_package = __name__
-    resource_path = &#39;maps/GRCh38.ens_v90.ensembl2gene_name_version.txt.gz&#39;  # Do not use os.path.join()
+    resource_path = &#39;maps/Homo_sapiens.GRCh38.ens_v90.gene_name_version2ensembl.txt.gz&#39;  # Do not use os.path.join()
     resource_stream = pkg_resources.resource_stream(resource_package, resource_path)    
     df_map = pd.read_csv(resource_stream, compression=&#39;gzip&#39;, delim_whitespace=True)
-    # create dictionary for mapping human ensemble gene id&#39;s to gene names
-    map_dict = dict(zip(df_map[&#34;ensembl_gene_id&#34;].ravel(), \
-                            df_map[&#34;gene_name_optimal&#34;].ravel()))
+    # create dictionary for mapping
+    map_dict = dict(zip(df_map[&#34;gene_name_optimal&#34;].ravel(), \
+                            df_map[&#34;ensembl_gene_id&#34;].ravel()))
 
     # map genes in-place,
     # i.e. indexes are replaced directly in df
@@ -74,7 +75,7 @@ def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, ve
     if verbose or drop_unmapped:
         # check for unmapped genes
         # note the tilde ~ to get genes NOT mapped
-        mask_unmapped = ~df_unmapped.index.isin(df_map[&#34;gene_name_optimal&#34;])
+        mask_unmapped = ~df_unmapped.index.isin(df_map[&#34;ensembl_gene_id&#34;])
         label_unmapped = df_unmapped.index.values[mask_unmapped]
     
         # create report
@@ -101,77 +102,72 @@ def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, ve
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="cellex.utils.mapping.ens_human_to_symbol.ens_human_to_symbol"><code class="name flex">
-<span>def <span class="ident">ens_human_to_symbol</span></span>(<span>df_unmapped: pandas.core.frame.DataFrame, drop_unmapped: bool = False, verbose: bool = False) -> NoneType</span>
+<dt id="cellex.utils.mapping.human_symbol_to_human_ens.human_symbol_to_human_ens"><code class="name flex">
+<span>def <span class="ident">human_symbol_to_human_ens</span></span>(<span>df_unmapped: pandas.core.frame.DataFrame, drop_unmapped: bool = False, verbose: bool = False) -> NoneType</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Maps human ensembl gene id's to gene names inplace.</p>
-<h2 id="args">Args</h2>
+<div class="desc"><p>Map dataframe index human gene symbol to human ensemble id inplace</p>
+<h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>df_unmapped</code></strong></dt>
-<dd>a dataframe in tidy-format.</dd>
-<dt><strong><code>drop_unmapped</code></strong></dt>
-<dd>True: remove unmapped genes (rows) from df, False: keep original index</dd>
-<dt><strong><code>verbose</code></strong></dt>
-<dd>
-<p>explicitly print status or not</p>
-</dd>
+<dt><strong><code>df_unmapped</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>DataFrame with gene names of appropriate format (e.g. ensembl) as index</dd>
+<dt><strong><code>drop_unmapped</code></strong> :&ensp;<code>bool</code>, optional <code>(default: False)</code></dt>
+<dd>Remove unmapped genes (rows) from df, False: keep original index.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional <code>(default: False)</code></dt>
+<dd>Print progress report.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>None</code></dt>
-<dd>&nbsp;</dd>
-</dl>
+<pre><code>None
+</code></pre>
 <h2 id="todo">Todo</h2>
-<ul>
-<li>modify drop_unmapped to unmapped: {"drop", "keep", "na"}</li>
-<li>make one mapping-function for all cases</li>
-<li>support for custom mapping file</li>
-<li>handle lower/upper/mixed casee letters in index</li>
-<li>handle case for empty df</li>
-</ul></div>
+<pre><code>* make one mapping-function for all cases
+* modify drop_unmapped to unmapped: {"drop", "keep", "na"}
+* support for custom mapping file
+* handle lower/upper/mixed casee letters in index
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -&gt; None:
-    &#34;&#34;&#34;
-    Maps human ensembl gene id&#39;s to gene names inplace.
+<pre><code class="python">def human_symbol_to_human_ens(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, verbose: bool=False) -&gt; None:
+    &#34;&#34;&#34;Map dataframe index human gene symbol to human ensemble id inplace
 
-    Args:
-        df_unmapped:    a dataframe in tidy-format.
-        drop_unmapped:  True: remove unmapped genes (rows) from df, False: keep original index
-        verbose:        explicitly print status or not
+    Parameters
+    ----------
+    df_unmapped : DataFrame
+        DataFrame with gene names of appropriate format (e.g. ensembl) as index
+    
+    drop_unmapped : bool, optional (default: False)
+        Remove unmapped genes (rows) from df, False: keep original index.
+    
+    verbose : bool, optional (default: False)
+        Print progress report.
 
-    Returns:
+    Returns
+    -------
         None
     
-    Todo:
-        * modify drop_unmapped to unmapped: {&#34;drop&#34;, &#34;keep&#34;, &#34;na&#34;}
+    TODO
+    ----
         * make one mapping-function for all cases
+        * modify drop_unmapped to unmapped: {&#34;drop&#34;, &#34;keep&#34;, &#34;na&#34;}
         * support for custom mapping file
         * handle lower/upper/mixed casee letters in index
-        * handle case for empty df
+    
     &#34;&#34;&#34;
+
     assert (len(df_unmapped) &gt; 0), &#34;Empty dataframe.&#34;
     
-    PREFIX = &#34;ENSG&#34;
-
     if verbose:
-        print(&#34;Mapping: human ensembl gene id&#39;s --&gt; gene names ...&#34;)
+        print(&#34;Mapping: human gene symbols --&gt; human ensembl gene id&#39;s ...&#34;)
     
-    # Check that genes are correct format
-    mask_peek = np.array([PREFIX in str(idx) for idx in df_unmapped.index.values])
-
-    if not (mask_peek.any()):
-        print(&#34;Dataframe index contains values that are not ensemble format or not human ensembl id: &#34;, df_unmapped.index.values[mask_peek])
     resource_package = __name__
-    resource_path = &#39;maps/GRCh38.ens_v90.ensembl2gene_name_version.txt.gz&#39;  # Do not use os.path.join()
+    resource_path = &#39;maps/Homo_sapiens.GRCh38.ens_v90.gene_name_version2ensembl.txt.gz&#39;  # Do not use os.path.join()
     resource_stream = pkg_resources.resource_stream(resource_package, resource_path)    
     df_map = pd.read_csv(resource_stream, compression=&#39;gzip&#39;, delim_whitespace=True)
-    # create dictionary for mapping human ensemble gene id&#39;s to gene names
-    map_dict = dict(zip(df_map[&#34;ensembl_gene_id&#34;].ravel(), \
-                            df_map[&#34;gene_name_optimal&#34;].ravel()))
+    # create dictionary for mapping
+    map_dict = dict(zip(df_map[&#34;gene_name_optimal&#34;].ravel(), \
+                            df_map[&#34;ensembl_gene_id&#34;].ravel()))
 
     # map genes in-place,
     # i.e. indexes are replaced directly in df
@@ -180,7 +176,7 @@ def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, ve
     if verbose or drop_unmapped:
         # check for unmapped genes
         # note the tilde ~ to get genes NOT mapped
-        mask_unmapped = ~df_unmapped.index.isin(df_map[&#34;gene_name_optimal&#34;])
+        mask_unmapped = ~df_unmapped.index.isin(df_map[&#34;ensembl_gene_id&#34;])
         label_unmapped = df_unmapped.index.values[mask_unmapped]
     
         # create report
@@ -218,7 +214,7 @@ def ens_human_to_symbol(df_unmapped: pd.DataFrame, drop_unmapped: bool=False, ve
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="cellex.utils.mapping.ens_human_to_symbol.ens_human_to_symbol" href="#cellex.utils.mapping.ens_human_to_symbol.ens_human_to_symbol">ens_human_to_symbol</a></code></li>
+<li><code><a title="cellex.utils.mapping.human_symbol_to_human_ens.human_symbol_to_human_ens" href="#cellex.utils.mapping.human_symbol_to_human_ens.human_symbol_to_human_ens">human_symbol_to_human_ens</a></code></li>
 </ul>
 </li>
 </ul>
