@@ -16,8 +16,8 @@ The documentation for CELLEX can be accessed in the following ways:
 
 - **[CELLEX Wiki](https://github.com/perslab/CELLEX/wiki)** : main documentation on the usage of CELLEX
 - **[CELLEX API docs](https://perslab.github.io/CELLEX/)**: documentation of CELLEX API/functions
-- **Publication**: technical details on the CELLEX method. Publication link: _Genetic mapping of etiologic brain cell types for obesity_ 
-([Timshel eLife, 2020](https://elifesciences.org/articles/55851), Supplementary Appendix)
+- [**Publication**](https://elifesciences.org/articles/55851): technical details on the CELLEX method. _Genetic mapping of etiologic brain cell types for obesity_ 
+([Timshel eLife, 2020](https://elifesciences.org/articles/55851), Appendix)
 
 We are continually updating the documentation for CELLEX. If some information is missing, please submit your request or question via our [issue tracker](https://github.com/perslab/CELLECT/issues).
 
