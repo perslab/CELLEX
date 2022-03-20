@@ -8,7 +8,7 @@ except ImportError:
 
 setup(
     name="cellex",
-    version="1.2.1",
+    version="1.2.2",
     author=__author__,
     author_email=__email__,
     description="Compute single-cell cell-type expression specificity",

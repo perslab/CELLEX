@@ -189,7 +189,7 @@ class SummaryData(object):
         for s in dir(self):
             att = getattr(self, s)
             if isinstance(att, pd.DataFrame) and s != "data":
-                fp = "{}/summarystat.{}.csv.gz".format(dir_name, self.name, s)
+                fp = "{}/summarystat.{}.csv.gz".format(dir_name, s)
                 att.to_csv(fp, compression="gzip")
                 if verbose:
                     print("  Saved: {}".format(fp))
