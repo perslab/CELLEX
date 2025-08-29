@@ -4,7 +4,7 @@ import time
 import datetime
 from scipy import stats
 
-def anova(df: pd.DataFrame, annotation: np.ndarray, threshold: np.float=0.00001, verbose: bool=False):
+def anova(df: pd.DataFrame, annotation: np.ndarray, threshold: float=0.00001, verbose: bool=False):
     """Apply ANOVA and filter data
     Applies ANOVA to identify lowly / sporadically expressed genes and remove them.
     Values of each gene (row) is split into groups according to the annotation.
