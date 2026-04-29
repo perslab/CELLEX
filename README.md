@@ -41,16 +41,11 @@ eso.results["esmu"].to_csv("mydataset.esmu.csv.gz")
 
 ## Walkthrough
 ### Setup
-#### Option A: Install the latest release from PyPi
-```
-pip install cellex
-```
-
-#### Option B: Install the development version from this repo
+#### Install the version from this repo
 Clone the development repo and install from source using `pip`. The development version may contain bug fixes that have not been released, as well as experimental features.
 
 ```
-git clone https://github.com/perslab/CELLEX.git --branch develop --single-branch
+git clone https://github.com/Tobi1kenobi/CELLEX.git --branch master --single-branch
 cd CELLEX
 pip install -e .
 ```

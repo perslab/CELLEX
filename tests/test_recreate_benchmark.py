@@ -27,4 +27,4 @@ def test_recreate_benchmark():
         result = eso.results[key]
         # Check that results are equal with 14 decimal points of precision
         # i.e. (0.048740023444475165 == 0.04874002344447517) is considered equal
-        pd.util.testing.assert_frame_equal(benchmark, result, check_less_precise=14)
+        pd.testing.assert_frame_equal(benchmark, result, atol=1e-14)
