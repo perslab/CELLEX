@@ -45,7 +45,7 @@ eso.results["esmu"].to_csv("mydataset.esmu.csv.gz")
 Clone the development repo and install from source using `pip`. The development version may contain bug fixes that have not been released, as well as experimental features.
 
 ```
-git clone https://github.com/Tobi1kenobi/CELLEX.git --branch master --single-branch
+git clone https://github.com/perslab/CELLEX.git --branch master --single-branch
 cd CELLEX
 pip install -e .
 ```
